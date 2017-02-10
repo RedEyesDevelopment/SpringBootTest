@@ -49,7 +49,6 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Transactional
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }

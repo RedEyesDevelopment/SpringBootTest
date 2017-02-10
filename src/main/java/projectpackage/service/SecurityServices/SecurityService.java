@@ -1,4 +1,4 @@
-package projectpackage.service;
+package projectpackage.service.SecurityServices;
 
 /**
  * Created by Gvozd on 07.01.2017.
