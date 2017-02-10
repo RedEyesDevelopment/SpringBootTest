@@ -11,7 +11,9 @@ insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('1', '2');
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('2', '2');
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('3', '1');
 
-
+insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('1', '2');
+insert into FILES (UR_USER_ID, UR_ROLE_ID) values ('2', '2');
+insert into FILES (UR_USER_ID, UR_ROLE_ID) values ('3', '1');
 
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'ru', 'Хуйня');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('login.emptyField', 'ru', 'Поле не должно быть пустым', 'Форма логина - проверка на пустое поле');
@@ -23,3 +25,4 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('AbstractAccessDecisionManager.accessDenied', 'ru', 'Вход запрещён', 'Spring Message - 403 (Access denied)');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('AbstractUserDetailsAuthenticationProvider.onlySupports', 'ru', 'Only UsernamePasswordAuthenticationToken is supported', 'Special Spring Error Message');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('AbstractUserDetailsAuthenticationProvider.badCredentials', 'ru', 'Login or password is incorrect', 'Ошибка логина/пароля');
+
