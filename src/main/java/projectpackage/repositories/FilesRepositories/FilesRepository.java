@@ -8,6 +8,6 @@ import projectpackage.model.Files.FileOnServer;
  * Created by Admin on 10.02.2017.
  */
 @Repository
-public interface FilesRepository extends PagingAndSortingRepository<FileOnServer, Long>{
-    FileOnServer findByFilname(String filename);
+public interface FilesRepository extends PagingAndSortingRepository<FileOnServer, Integer>{
+    FileOnServer findByFilename(String filename);
 }

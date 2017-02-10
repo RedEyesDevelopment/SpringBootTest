@@ -8,7 +8,6 @@ import projectpackage.model.AuthEntities.User;
 import projectpackage.repositories.AuthRepositories.RolesRepository;
 import projectpackage.repositories.AuthRepositories.UserRepository;
 
-import javax.transaction.Transactional;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,5 +54,10 @@ public class UserServiceImpl implements UserService {
 
     public User findOne(Long id) {
         return userRepository.findOne(id);
+    }
+
+    @Override
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
     }
 }

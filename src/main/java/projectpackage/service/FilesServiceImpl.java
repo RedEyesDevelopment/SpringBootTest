@@ -3,16 +3,15 @@ package projectpackage.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.repositories.FilesRepositories.FilesRepository;
 import projectpackage.support.SortingTool;
 
-import java.util.List;
-
 /**
  * Created by Admin on 10.02.2017.
  */
+@Service
 public class FilesServiceImpl implements FilesService {
 
     @Autowired
@@ -25,11 +24,11 @@ public class FilesServiceImpl implements FilesService {
 
     @Override
     public FileOnServer findByFilename(String filename) {
-        return filesRepository.findByFilname(filename);
+        return filesRepository.findByFilename(filename);
     }
 
     @Override
-    public FileOnServer findOne(Long id) {
+    public FileOnServer findOne(Integer id) {
         return filesRepository.findOne(id);
     }
 

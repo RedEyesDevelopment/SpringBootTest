@@ -1,5 +1,7 @@
 package projectpackage.model.AuthEntities;
 
+import projectpackage.model.Files.FileOnServer;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -40,6 +42,9 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES", joinColumns = @JoinColumn(name = "UR_USER_ID"), inverseJoinColumns = @JoinColumn(name = "UR_ROLE_ID"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "author")
+    private Set<FileOnServer> files = new HashSet<>();
 
     @Column(name = "USER_ENABLED")
     private boolean enabled;

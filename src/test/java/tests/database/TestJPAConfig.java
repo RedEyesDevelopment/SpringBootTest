@@ -15,6 +15,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import projectpackage.Application;
+import projectpackage.service.FilesService;
+import projectpackage.service.FilesServiceImpl;
 import projectpackage.service.UserService;
 import projectpackage.service.UserServiceImpl;
 
@@ -130,6 +132,11 @@ public class TestJPAConfig implements TransactionManagementConfigurer {
     @Bean
     UserService userService(){
         return new UserServiceImpl();
+    }
+
+    @Bean
+    FilesService filesService(){
+        return new FilesServiceImpl();
     }
 
 }

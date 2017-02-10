@@ -1,6 +1,5 @@
 package projectpackage.model.Files;
 
-import org.springframework.data.domain.Sort;
 import projectpackage.model.AuthEntities.User;
 
 import javax.persistence.*;
@@ -31,16 +30,17 @@ public class FileOnServer {
     @Column(name = "FILE_UPLOADED")
     private Timestamp uploadDate;
 
-    @Column(name = "FILE_AUTHOR")
+    @ManyToOne(optional = false)
+    @JoinColumn(name="FILE_AUTHOR", nullable=false)
     private User author;
 
-    @Column(name = "USER_ENABLED")
-    private boolean enabled;
+    @Column(name = "FILE_PUBLIC")
+    private boolean publicity;
 
     @Column(name = "FILE_NOT_DELETABLE")
     private boolean notDeletable;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -88,12 +88,12 @@ public class FileOnServer {
         this.author = author;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isPublicity() {
+        return publicity;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setPublicity(boolean publicity) {
+        this.publicity = publicity;
     }
 
     public boolean isNotDeletable() {
@@ -123,5 +123,19 @@ public class FileOnServer {
         result = 31 * result + (extension != null ? extension.hashCode() : 0);
         result = 31 * result + alternative.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "FileOnServer{" +
+                "id=" + id +
+                ", filename='" + filename + '\'' +
+                ", extension='" + extension + '\'' +
+                ", alternative='" + alternative + '\'' +
+                ", uploadDate=" + uploadDate +
+                ", author=" + author +
+                ", public=" + publicity +
+                ", notDeletable=" + notDeletable +
+                '}';
     }
 }

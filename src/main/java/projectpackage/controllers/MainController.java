@@ -21,4 +21,11 @@ public class MainController {
         mav.setViewName("index");
         return mav;
     }
+
+    @RequestMapping(value="/editor")
+    ModelAndView editor(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("editor");
+        return mav;
+    }
 }

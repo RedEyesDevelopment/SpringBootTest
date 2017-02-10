@@ -1,5 +1,6 @@
 package projectpackage.service;
 
+import org.springframework.data.domain.Page;
 import projectpackage.model.Files.FileOnServer;
 
 /**
@@ -8,6 +9,7 @@ import projectpackage.model.Files.FileOnServer;
 public interface FilesService {
     void save(FileOnServer file);
     FileOnServer findByFilename(String filename);
-    FileOnServer findOne(Long id);
+    FileOnServer findOne(Integer id);
+    Page<FileOnServer> findAll(int startingCount, int endingCount, String sortingParameter, boolean ascend);
 
 }

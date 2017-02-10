@@ -6,8 +6,10 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import projectpackage.model.AuthEntities.Role;
 import projectpackage.model.AuthEntities.User;
+import projectpackage.model.Files.FileOnServer;
 import projectpackage.repositories.AuthRepositories.RolesRepository;
 import projectpackage.repositories.InternationalizationRepositories.InterMessageRepository;
+import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 
 import java.util.HashSet;
@@ -28,6 +30,9 @@ public class RepositoryTests extends AbstractDatabaseTest {
     @Autowired
     RolesRepository rolesRepository;
 
+    @Autowired
+    FilesService filesService;
+
     @Test
     @Rollback(true)
     public void getUser(){
@@ -44,6 +49,17 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println("****************************************************************");
         User user = userService.findByUsername("qwerty");
         System.out.println(user.toString());
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getUserList(){
+        System.out.println(userService.toString());
+        System.out.println("****************************************************************");
+        for (User user:userService.findAll()){
+            System.out.println(user.toString());
+        }
         System.out.println("****************************************************************");
     }
 
@@ -75,5 +91,25 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println(interMessageRepository.findOne(1).toString());
         System.out.println("****************************************************************");
 
+    }
+
+    @Test
+    @Rollback(true)
+    public void getFile(){
+        System.out.println(filesService.toString());
+        System.out.println("****************************************************************");
+        System.out.println(filesService.findOne(2).toString());
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getFilePageableList(){
+        System.out.println(filesService.toString());
+        System.out.println("****************************************************************");
+        for (FileOnServer file:filesService.findAll(0,10, "alternative", true)){
+            System.out.println(file.toString());
+        }
+        System.out.println("****************************************************************");
     }
 }
