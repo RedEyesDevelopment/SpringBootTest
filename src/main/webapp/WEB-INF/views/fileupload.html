@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Fileupload</title>
-    <link href="/res/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/res/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/res/css/uploadfiles.css" rel="stylesheet"/>
 </head>
 <body>
-<div id="fileupload">
-    <p data-th-text="#{filespage.uploadfilemessage}"/><br/>
-    <form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
-        <input autofocus type="file" name="file" th:value="#{filespage.choosefilebutton}"
-               class="btn btn-primary btn-block"/><br/>
-        <input type="submit" th:value="#{filespage.uploadbutton}" class="btn btn-default btn-block"/>
-    </form>
-</div>
+<p data-th-text="#{filespage.uploadfilemessage}"/><br/>
+<label class="file_upload">
+    <button type="button" class="button btn btn-primary" th:value="#{filespage.choosefilebutton}"></button>
+    <mark th:value="#{filespage.filenotchoosed}">Файл не выбран</mark>
+    <input type="file" name="file"/>
+    <input type="submit" th:value="#{filespage.uploadbutton}" class="btn btn-default btn-block"/>
+</label>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="/res/js/uploadfiles.js"></script>
 </body>
 </html>
