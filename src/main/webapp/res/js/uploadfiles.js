@@ -9,7 +9,14 @@ function getName (str){
     var uploadedButton = document.getElementById("uploadSubmit");
     var fileUploadedButton = document.getElementById("uploadedFileName");
     var file = document.getElementById("uploadlabel");
-    uploadedButton.style.visibility = "visible";
+    var elements = document.getElementsByClassName('dounhide');
+
     fileUploadedButton.innerHTML = filename;
-    file.className = "btn btn-default btn-block";
+    file.className = "btn btn-md btn-default btn-block";
+
+
+    elements.forEach(function (el) {
+      el.style.visibility = "visible";
+    });
+
 }

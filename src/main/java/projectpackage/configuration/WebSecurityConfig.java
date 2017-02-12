@@ -31,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").failureUrl("/login?error").defaultSuccessUrl("/", false)
                 .and().logout().logoutSuccessUrl("/login?logout").invalidateHttpSession(true).logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .and().authorizeRequests()
+                .antMatchers("/fileapi/**").permitAll()
                 .antMatchers("/res/**").permitAll()
                 .antMatchers("/dynamic/**").permitAll()
                 .antMatchers("/", "/home").permitAll()
