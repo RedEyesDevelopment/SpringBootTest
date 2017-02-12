@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8"/>
     <title>Fileupload</title>
@@ -7,13 +7,25 @@
     <link href="/res/css/uploadfiles.css" rel="stylesheet"/>
 </head>
 <body>
-<p data-th-text="#{filespage.uploadfilemessage}"/><br/>
-<label class="file_upload">
-    <button type="button" class="button btn btn-primary" th:value="#{filespage.choosefilebutton}"></button>
-    <mark th:value="#{filespage.filenotchoosed}">Файл не выбран</mark>
-    <input type="file" name="file"/>
-    <input type="submit" th:value="#{filespage.uploadbutton}" class="btn btn-default btn-block"/>
-</label>
+
+<div class="fileform">
+    <form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-12"><p id="preUploadText" data-th-text="#{filespage.uploadfilemessage}"/></div>
+        <div class="col-sm-12">
+            <div id="uploadedFileName" class="well well-sm well-block"><p data-th-text="#{filespage.filenotchoosed}"/>
+            </div>
+        </div>
+        <div class="col-sm-12"><label for="file" id="uploadlabel" class="btn btn-primary btn-block"><p
+                data-th-text="#{filespage.choosefilebutton}"></p></label> <input style="opacity: 0; z-index: -1;"
+                                                                                 type="file" name="file" id="file"
+                                                                                 onchange="getName(this.value);"/></div>
+    </div>
+    <div class="col-sm-12"><input id="uploadSubmit" type="submit" th:value="#{filespage.uploadbutton}"
+                                  class="btn btn-success btn-block"/></div>
+    </form>
+</div>
+
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script type="text/javascript" src="/res/js/uploadfiles.js"></script>
 </body>
