@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Fileupload</title>
+    <link href="/res/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div id="fileupload">
+    <p data-th-text="#{filespage.uploadfilemessage}"/><br/>
+    <form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
+        <input autofocus type="file" name="file" th:value="#{filespage.choosefilebutton}"
+               class="btn btn-primary btn-block"/><br/>
+        <input type="submit" th:value="#{filespage.uploadbutton}" class="btn btn-default btn-block"/>
+    </form>
+</div>
+</body>
+</html>

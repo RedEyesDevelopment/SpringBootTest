@@ -1,9 +1,11 @@
 package projectpackage.configuration;
 
 import lombok.extern.log4j.Log4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -20,6 +22,9 @@ import projectpackage.components.CustomDatabaseMessageSource;
 @Configuration
 @EnableWebMvc
 public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
+
+    @Value("${fileupload.maxSizePerFileInMegabytes}")
+    private String maxFileUploadSize;
 
 //    Ищет View(Template) для отображения страниц
     @Bean
@@ -62,4 +67,13 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+
+    @Bean
+    CommonsMultipartResolver multipartResolver(){
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        int maxFileUploadSizeInt = Integer.parseInt(maxFileUploadSize)*1024*1024;
+        multipartResolver.setMaxUploadSizePerFile(maxFileUploadSizeInt);
+        return multipartResolver;
+    }
+
 }
