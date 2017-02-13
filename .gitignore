@@ -5,6 +5,7 @@
 !/.idea/runConfigurations/
 out
 gen
+log
 
 # Maven
 log/

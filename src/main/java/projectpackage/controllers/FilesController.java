@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Log4j
 @Controller
-@RequestMapping(value = "/fileapi")
+@RequestMapping(value = "/fileapi/")
 public class FilesController {
 
     @Autowired
@@ -122,6 +122,7 @@ public class FilesController {
             parameter="uploadDate";
         }
         Long ownId= (Long) request.getSession().getAttribute("OWN_USER_ID");
+        if (ownId==null) ownId=1L;
 
         User myself = userService.findOne(ownId);
         List<FileOnServer> filesList = customFilesRepository.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, parameter, ascend);
@@ -132,11 +133,11 @@ public class FilesController {
         request.getSession().setAttribute("filesAscend", ascendString);
 
         map.put("filesList", filesList);
-        return "fileproperties";
+        return "filelist";
     }
 
-    @RequestMapping("uploadedFileProperties")
-    public String fileAfterUploadPAge() {
-        return "fileproperties";
-    }
+//    @RequestMapping("uploadedFileProperties")
+//    public String fileAfterUploadPAge() {
+//        return "fileproperties";
+//    }
 }

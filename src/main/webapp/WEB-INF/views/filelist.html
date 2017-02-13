@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>FileList</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<table th:each="fileitem : ${filesList}">
+    <tr>
+        <div id="fileContentSection">
+            <p th:text="#{filespage.showfilename}+': '+${fileitem.alternative}"/>
+            <p th:text="#{filespage.showfiletype}+': '+${fileitem.extension}"/>
+            <p th:text="#{filespage.showfileuploadeddate}+': '+${#calendars.format(fileitem.uploadDate, 'dd MMM yyyy HH:mm')}"/>
+            <p th:text="#{filespage.showfileauthor}+': '+${fileitem.author.fullname}"/>
+            <img th:src="${'/dynamic/'+fileitem.filename}" th:alt="${fileitem.alternative}"
+                 height="100"/>
+        </div>
+    </tr>
+
+</table>
+</body>
+</html>
