@@ -2,14 +2,15 @@ package projectpackage.controllers;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import projectpackage.model.AuthEntities.User;
 import projectpackage.model.Files.FileOnServer;
+import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 
@@ -19,6 +20,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,6 +33,9 @@ public class FilesController {
 
     @Autowired
     private FilesService filesService;
+
+    @Autowired
+    CustomFilesRepository customFilesRepository;
 
     @Autowired
     private UserService userService;
@@ -116,9 +121,13 @@ public class FilesController {
         if (parameter==null || parameter.equals("")){
             parameter="uploadDate";
         }
+        Long ownId= (Long) request.getSession().getAttribute("OWN_USER_ID");
 
-        Page<FileOnServer> filesList = filesService.findAll(offset, filesQuantity, parameter, ascend);
+        User myself = userService.findOne(ownId);
+        List<FileOnServer> filesList = customFilesRepository.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, parameter, ascend);
+
         request.getSession().setAttribute("filesQuantity", quantity);
+        request.getSession().setAttribute("filesOffset", offset);
         request.getSession().setAttribute("filesParameter", parameter);
         request.getSession().setAttribute("filesAscend", ascendString);
 

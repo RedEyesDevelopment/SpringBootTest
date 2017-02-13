@@ -8,6 +8,7 @@ import projectpackage.model.AuthEntities.Role;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.repositories.AuthRepositories.RolesRepository;
+import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.repositories.InternationalizationRepositories.InterMessageRepository;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
@@ -32,6 +33,9 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Autowired
     FilesService filesService;
+
+    @Autowired
+    CustomFilesRepository customFilesRepository;
 
     @Test
     @Rollback(true)
@@ -108,6 +112,18 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
         for (FileOnServer file:filesService.findAll(0,10, "alternative", true)){
+            System.out.println(file.toString());
+        }
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getFilePageableListFromCustomRepository(){
+        System.out.println(customFilesRepository.toString());
+        System.out.println("****************************************************************");
+        User user = userService.findOne(2L);
+        for (FileOnServer file:customFilesRepository.findAllPublicityTrueOrUserIsAuthor(user,1,5,"uploadDate",true)){
             System.out.println(file.toString());
         }
         System.out.println("****************************************************************");

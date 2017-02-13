@@ -15,6 +15,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import projectpackage.Application;
+import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
+import projectpackage.repositories.FilesRepositories.CustomFilesRepositoryImpl;
 import projectpackage.service.FilesService;
 import projectpackage.service.FilesServiceImpl;
 import projectpackage.service.UserService;
@@ -139,4 +141,8 @@ public class TestJPAConfig implements TransactionManagementConfigurer {
         return new FilesServiceImpl();
     }
 
+    @Bean
+    CustomFilesRepository customFilesRepository(){
+        return new CustomFilesRepositoryImpl();
+    }
 }

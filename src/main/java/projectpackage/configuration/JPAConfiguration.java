@@ -12,6 +12,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 import projectpackage.Application;
+import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
+import projectpackage.repositories.FilesRepositories.CustomFilesRepositoryImpl;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -76,4 +78,8 @@ public class JPAConfiguration implements TransactionManagementConfigurer {
         return new JpaTransactionManager();
     }
 
+    @Bean
+    CustomFilesRepository customFilesRepository(){
+        return new CustomFilesRepositoryImpl();
+    }
 }
