@@ -5,8 +5,10 @@
 !/.idea/runConfigurations/
 out
 gen
-log
 
 # Maven
 log/
 target/
+
+# SpringFiles
+/LOG
