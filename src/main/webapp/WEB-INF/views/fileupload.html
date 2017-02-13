@@ -22,8 +22,9 @@
                                                                                      type="file" name="file" id="file"
                                                                                      onchange="getName(this.value);"/>
             </div>
-            <div class="col-sm-12 dounhide"><input class="form-control" id="alternative" type="text" placeholder="Alternative text"/></div>
-            <div class="col-sm-12 dounhide"><p>Public? </p><input type="checkbox"  name="publicity" value="true" checked="checked" /></div>
+            <div class="col-sm-12 dounhide"><input class="form-control" id="alternative" type="text" th:placeholder="#{filespage.filenamelabel}"/></div>
+            <div class="col-sm-12 dounhide"><div class="well well-sm"><label for="publicity" id="publicLabel"><div
+                    data-th-text="#{filespage.filepubliclabel}"/></label>  <input type="checkbox" name="publicity" value="true" checked="checked" /></div></div>
             <div class="col-sm-12 dounhide"><input id="uploadSubmit" type="submit" th:value="#{filespage.uploadbutton}"
                                           class="btn btn-lg btn-success btn-block"/></div></div>
     </form>

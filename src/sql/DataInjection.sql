@@ -63,4 +63,6 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.choosefilebutton', 'ru', 'Выбрать файл', 'кнопка выбора файла');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.uploadfilemessage', 'ru', 'Выберите файл на жёстком диске и нажмите кнопку загрузить', 'сообщение в меню загрузки');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.filenotchoosed', 'ru', 'Файл не выбран', 'сообщение в открывающимся окне');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.filenamelabel', 'ru', 'Пожалуйста, проименуйте файл для быстрого поиска', 'сообщение в лейбе имени файла');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.filepubliclabel', 'ru', 'Открытый доступ всем?  ', 'сообщение в лейбе открытого доступа файла');
 
