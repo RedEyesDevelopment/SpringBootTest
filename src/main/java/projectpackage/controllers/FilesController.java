@@ -1,25 +1,39 @@
 package projectpackage.controllers;
 
+import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import projectpackage.model.Files.FileOnServer;
 import projectpackage.service.FilesService;
+import projectpackage.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.sql.Timestamp;
+import java.util.Map;
 
 /**
  * Created by Gvozd on 12.02.2017.
  */
+@Log4j
 @Controller
 @RequestMapping(value = "/fileapi")
 public class FilesController {
 
     @Autowired
-    FilesService filesService;
+    private FilesService filesService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("upload")
     public String fileUploadPage() {
@@ -28,7 +42,88 @@ public class FilesController {
 
     @RequestMapping(value="doUpload", method = RequestMethod.POST)
     public String fileUploading(@RequestParam("file") MultipartFile file, String publicity, String alternative, HttpServletRequest request, HttpServletResponse response) {
-        return "fileupload";
+        Boolean publicitys = Boolean.parseBoolean(publicity);
+        String name = null;
+        if (publicitys == null || publicitys.equals("")) {
+            publicitys = false;
+        }
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+
+                name = file.getOriginalFilename();
+
+                StringBuilder rootPath = new StringBuilder(request.getServletContext().getRealPath("/").toString());
+                rootPath.append("/dynamic/");
+                System.out.println(rootPath.toString());
+                File dir = new File(rootPath.toString() + File.separator);
+
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                }
+
+                String extension = name.split(".")[1];
+                if (null==extension || extension.equals("")){
+                    extension="file";
+                }
+
+                System.out.println("in file controller");
+
+                File uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
+
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
+                stream.write(bytes);
+                stream.flush();
+                stream.close();
+
+                log.info("uploaded: " + uploadedFile.getAbsolutePath());
+
+                String fileName;
+                if (alternative!=null) {
+                    fileName = alternative;
+                } else fileName= uploadedFile.getName();
+
+                Long userId = (Long) request.getSession().getAttribute("USER_ID");
+                System.out.println(userId.toString());
+
+                FileOnServer newFile = new FileOnServer();
+                newFile.setFilename(fileName);
+                newFile.setAuthor(userService.findOne(userId));
+                newFile.setUploadDate(new Timestamp(System.currentTimeMillis()));
+                newFile.setPublicity(publicitys);
+                newFile.setNotDeletable(false);
+                newFile.setExtension(extension);
+                filesService.save(newFile);
+                String redirect = "redirect:/fileapi/filelist";
+                return redirect;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            return "You failed to upload " + name + " because the file was empty.";
+        }
+        return "/error/404";
+    }
+
+    @RequestMapping("filelist&for={quantity}&show={offset}&sort={parameter}&ascend={ascendString}")
+    public String fileListPage(@PathVariable("quantity") Integer quantity, @PathVariable("offset") Integer offset, @PathVariable("parameter") String parameter, @PathVariable("ascendString") String ascendString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        Boolean ascend;
+        if (ascendString == null || ascendString.equals("")) {
+            ascend = false;
+        } else ascend = Boolean.parseBoolean(ascendString);
+        Integer filesQuantity = offset+quantity;
+        if (parameter==null || parameter.equals("")){
+            parameter="uploadDate";
+        }
+
+        Page<FileOnServer> filesList = filesService.findAll(offset, filesQuantity, parameter, ascend);
+        request.getSession().setAttribute("filesQuantity", quantity);
+        request.getSession().setAttribute("filesParameter", parameter);
+        request.getSession().setAttribute("filesAscend", ascendString);
+
+        map.put("filesList", filesList);
+        return "fileproperties";
     }
 
     @RequestMapping("uploadedFileProperties")
