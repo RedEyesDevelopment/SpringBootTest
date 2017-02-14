@@ -65,8 +65,10 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.filenotchoosed', 'ru', 'Файл не выбран', 'сообщение в открывающимся окне');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.filenamelabel', 'ru', 'Пожалуйста, проименуйте файл для быстрого поиска', 'сообщение в лейбе имени файла');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.filepubliclabel', 'ru', 'Открытый доступ всем?  ', 'сообщение в лейбе открытого доступа файла');
-insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.showfilename', 'ru', 'Название', 'список файлов, название заголовка');
-insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.showfiletype', 'ru', 'Тип', 'список файлов, название заголовка');
-insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.showfileuploadeddate', 'ru', 'Создан', 'список файлов, название заголовка');
-insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filespage.showfileauthor', 'ru', 'Автор', 'список файлов, название заголовка');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.searchbutton', 'ru', 'Искать', 'список файлов, название кнопки поиска');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.sortfilenamebutton', 'ru', 'Название', 'список файлов, название заголовка');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.sorttypebutton', 'ru', 'Тип', 'список файлов, название заголовка');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.sortuploaddatebutton', 'ru', 'Создан', 'список файлов, название заголовка');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.sortauthorbutton', 'ru', 'Автор', 'список файлов, название заголовка');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.changefilesquantity', 'ru', 'Показать', 'список файлов, название заголовка смены количества файлов');
 
