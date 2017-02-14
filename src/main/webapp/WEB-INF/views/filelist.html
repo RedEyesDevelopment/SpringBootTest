@@ -5,6 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
+<div id="filemenu">
+    <button id="searchFilesButton" class="btn btn-primary" th:value="#{fileslistpage.searchbutton}"/>
+    <button id="sortByFilename" class="btn btn-primary" th:value="#{fileslistpage.sortfilenamebutton}"/>
+    <button id="sortByAuthor" class="btn btn-primary" th:value="#{fileslistpage.sortauthorbutton}"/>
+    <button id="sortByUploadedDate" class="btn btn-primary" th:value="#{fileslistpage.sortuploaddatebutton}"/>
+    <button id="changeFilesQuantity" class="btn btn-primary" th:value="#{fileslistpage.sortuploaddatebutton}"/>
+    <a href="/registration">Create an account</a>
+</div>
+
 <table th:each="fileitem : ${filesList}">
     <tr>
         <div id="fileContentSection">
@@ -16,7 +25,10 @@
                  height="100"/>
         </div>
     </tr>
-
 </table>
+
+<div id="navsection">
+
+</div>
 </body>
 </html>

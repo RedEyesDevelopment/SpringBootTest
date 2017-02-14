@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.Files.FileOnServer;
-import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 
@@ -33,9 +32,6 @@ public class FilesController {
 
     @Autowired
     private FilesService filesService;
-
-    @Autowired
-    CustomFilesRepository customFilesRepository;
 
     @Autowired
     private UserService userService;
@@ -99,14 +95,13 @@ public class FilesController {
                 newFile.setNotDeletable(false);
                 newFile.setExtension(extension);
                 filesService.save(newFile);
-                String redirect = "redirect:/fileapi/filelist";
-                return redirect;
+                return "redirect:/fileapi/filelist";
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            return "You failed to upload " + name + " because the file was empty.";
+            return "You failed to upload " + file.getOriginalFilename() + " because the file was empty.";
         }
         return "/error/404";
     }
@@ -125,7 +120,7 @@ public class FilesController {
         if (ownId==null) ownId=1L;
 
         User myself = userService.findOne(ownId);
-        List<FileOnServer> filesList = customFilesRepository.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, parameter, ascend);
+        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, parameter, ascend);
 
         request.getSession().setAttribute("filesQuantity", quantity);
         request.getSession().setAttribute("filesOffset", offset);
