@@ -106,7 +106,7 @@ public class FilesController {
         return "/error/404";
     }
 
-    @RequestMapping("filelist&for={quantity}&show={offset}&sort={parameter}&ascend={ascendString}")
+    @RequestMapping("filelist?for={quantity}&show={offset}&sort={parameter}&ascend={ascendString}")
     public String fileListPage(@PathVariable("quantity") Integer quantity, @PathVariable("offset") Integer offset, @PathVariable("parameter") String parameter, @PathVariable("ascendString") String ascendString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Boolean ascend;
         if (ascendString == null || ascendString.equals("")) {
