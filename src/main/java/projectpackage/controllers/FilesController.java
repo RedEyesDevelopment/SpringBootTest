@@ -3,7 +3,6 @@ package projectpackage.controllers;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -106,8 +105,8 @@ public class FilesController {
         return "/error/404";
     }
 
-    @RequestMapping("filelist?for={quantity}&show={offset}&sort={parameter}&ascend={ascendString}")
-    public String fileListPage(@PathVariable("quantity") Integer quantity, @PathVariable("offset") Integer offset, @PathVariable("parameter") String parameter, @PathVariable("ascendString") String ascendString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value="filelist", params = {"for", "show", "sort", "ascend"})
+    public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") String ascendString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Boolean ascend;
         if (ascendString == null || ascendString.equals("")) {
             ascend = false;

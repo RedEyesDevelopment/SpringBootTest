@@ -26,8 +26,7 @@
 </div>
 
 Session quantity: <p th:text="${session.filesQuantity}"></p>
-Parameter quantity(for): <p th:text="${param.for}"></p>
-Parameter quantity(quantity): <p th:text="${param.quantity}"></p>
+Parameter quantity(for): <p th:text="${T(Integer).parseInt(param.for)}"></p>
 ******************************
 http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
 ******************************
