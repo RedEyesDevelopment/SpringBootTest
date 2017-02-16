@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import projectpackage.errors.AuthError;
 
 /**
  * Created by Gvozd on 07.01.2017.
@@ -36,7 +37,7 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public void autologin(String username, String password) {
+    public AuthError autologin(String username, String password) {
         log.warn("SecurityServiceImpl:autologin, username="+username+" password="+password);
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 //        String encodedPassword = bCryptPasswordEncoder.encode(password);
@@ -45,6 +46,9 @@ public class SecurityServiceImpl implements SecurityService {
         if (usernamePasswordAuthenticationToken.isAuthenticated()){
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             log.info("autologin");
+            return AuthError.NoError;
+        } else {
+            return AuthError.IncorrectCredentials;
         }
     }
 }

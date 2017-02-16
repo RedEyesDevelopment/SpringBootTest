@@ -63,6 +63,17 @@ public class UserController {
         return "login";
     }
 
+    @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
+    public String doLogin(String username, String password, HttpServletResponse response, HttpServletRequest request){
+
+        System.out.println("login="+username+" password="+password);
+        System.out.println("IN DOLOGIN METHOD");
+        String result = (String) securityService.autologin(username, password).toString();
+        System.out.println("RESULT AUTHERROR = "+result);
+
+        return "redirect:/index";
+    }
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model){
         return "admin";

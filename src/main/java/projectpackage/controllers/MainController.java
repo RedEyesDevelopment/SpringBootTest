@@ -17,6 +17,7 @@ public class MainController {
     ModelAndView home() {
         ModelAndView mav = new ModelAndView();
         Timestamp tms = new Timestamp(System.currentTimeMillis());
+        System.out.println("tms="+tms);
         mav.addObject("tms", tms);
         mav.setViewName("index");
         return mav;
