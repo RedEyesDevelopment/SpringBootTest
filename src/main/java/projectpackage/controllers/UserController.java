@@ -8,8 +8,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import projectpackage.model.AuthEntities.User;
+import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.service.SecurityServices.SecurityService;
 import projectpackage.service.UserService;
+import projectpackage.service.UserSessionService;
+import projectpackage.support.SessionTool;
+import projectpackage.validators.AuthValidation;
 import projectpackage.validators.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +34,9 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    @Autowired
+    UserSessionService userSessionService;
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model){
         model.addAttribute("userForm", new User());
@@ -37,7 +44,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registrationHandler(@ModelAttribute("userFrom") User userForm, BindingResult bindingResult, Model model){
+    public String registrationHandler(@ModelAttribute("userFrom") User userForm, BindingResult bindingResult, Model model, HttpServletRequest request){
         System.out.println("controller: "+userForm.toString());
         userValidator.validate(userForm, bindingResult);
         if (bindingResult.hasErrors()){
@@ -46,6 +53,9 @@ public class UserController {
         }
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getConfirmPassword());
+        User newUser = userService.findByUsername(userForm.getUsername());
+        UserSession newUserSession= userSessionService.createUserSession(newUser.getId());
+        SessionTool.fillSessionWithUserSessionInfo(request.getSession(), newUser, newUserSession);
         return "redirect:/index";
     }
 
@@ -64,12 +74,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
-    public String doLogin(String username, String password, HttpServletResponse response, HttpServletRequest request){
+    public String doLogin(String username, String password, HttpServletResponse response, HttpServletRequest request, Model model){
 
-        System.out.println("login="+username+" password="+password);
-        System.out.println("IN DOLOGIN METHOD");
         String result = (String) securityService.autologin(username, password).toString();
-        System.out.println("RESULT AUTHERROR = "+result);
+
+        if (result.equals(AuthValidation.IncorrectCredentials)){
+            model.addAttribute("error", "Username or password incorrect");
+            return "redirect:/login";
+        }
 
         return "redirect:/index";
     }

@@ -1,11 +1,11 @@
 package projectpackage.service.SecurityServices;
 
-import projectpackage.errors.AuthError;
+import projectpackage.validators.AuthValidation;
 
 /**
  * Created by Gvozd on 07.01.2017.
  */
 public interface SecurityService {
     String findLoggedInUsername();
-    AuthError autologin(String username, String password);
+    AuthValidation autologin(String username, String password);
 }

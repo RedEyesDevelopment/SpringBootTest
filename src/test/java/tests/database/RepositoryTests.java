@@ -8,6 +8,7 @@ import projectpackage.model.AuthEntities.Role;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.repositories.AuthRepositories.RolesRepository;
+import projectpackage.repositories.AuthRepositories.UserSessionRepository;
 import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.repositories.InternationalizationRepositories.InterMessageRepository;
 import projectpackage.service.FilesService;
@@ -36,6 +37,9 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Autowired
     CustomFilesRepository customFilesRepository;
+
+    @Autowired
+    UserSessionRepository userSessionRepository;
 
     @Test
     @Rollback(true)

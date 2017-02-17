@@ -1,9 +1,9 @@
-package projectpackage.errors;
+package projectpackage.validators;
 
 /**
  * Created by Lenovo on 16.02.2017.
  */
-public enum AuthError {NoError, IncorrectCredentials;
+public enum AuthValidation {NoError, IncorrectCredentials;
 
     private String name;
 
