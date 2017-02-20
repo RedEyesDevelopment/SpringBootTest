@@ -7,9 +7,9 @@ insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('System_Programmer', 'sys
 insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('Admin', 'admin', '$2a$11$iXOUawTHBNAswdVWdHF9EuveOseXTB88egGfzBb.9Y.T.96ipQrte');
 insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('QwertyUser', 'qwerty', '$2a$11$mYwze2v1YQgcj7kwvXLkOOWgwqwMwimWVaCloEzA0ibfLLEYcgxXm');
 
-insert into SESSION (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('1', '10', '1', 'uploadDate', 1, "ru");
-insert into SESSION (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', '1', 'uploadDate', 1, "ru");
-insert into SESSION (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', '1', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('1', '10', '1', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', '1', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', '1', 'uploadDate', 1, "ru");
 
 
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('1', '2');

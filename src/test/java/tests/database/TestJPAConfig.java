@@ -17,10 +17,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 import projectpackage.Application;
 import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.repositories.FilesRepositories.CustomFilesRepositoryImpl;
-import projectpackage.service.FilesService;
-import projectpackage.service.FilesServiceImpl;
-import projectpackage.service.UserService;
-import projectpackage.service.UserServiceImpl;
+import projectpackage.service.*;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -144,5 +141,10 @@ public class TestJPAConfig implements TransactionManagementConfigurer {
     @Bean
     CustomFilesRepository customFilesRepository(){
         return new CustomFilesRepositoryImpl();
+    }
+
+    @Bean
+    UserSessionService userSessionService(){
+        return new UserSessionServiceImpl();
     }
 }

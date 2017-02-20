@@ -6,14 +6,13 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import projectpackage.model.AuthEntities.Role;
 import projectpackage.model.AuthEntities.User;
+import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.repositories.AuthRepositories.RolesRepository;
-import projectpackage.repositories.AuthRepositories.UserSessionRepository;
-import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.repositories.InternationalizationRepositories.InterMessageRepository;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
-import projectpackage.support.SessionTool;
+import projectpackage.service.UserSessionService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,13 +36,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
     FilesService filesService;
 
     @Autowired
-    CustomFilesRepository customFilesRepository;
-
-    @Autowired
-    SessionTool sessionTool;
-
-    @Autowired
-    UserSessionRepository userSessionRepository;
+    UserSessionService userSessionService;
 
     @Test
     @Rollback(true)
@@ -128,12 +121,22 @@ public class RepositoryTests extends AbstractDatabaseTest {
     @Test
     @Rollback(true)
     public void getFilePageableListFromCustomRepository(){
-        System.out.println(customFilesRepository.toString());
+        System.out.println(filesService.toString());
         System.out.println("****************************************************************");
         User user = userService.findOne(2L);
-        for (FileOnServer file:customFilesRepository.findAllPublicityTrueOrUserIsAuthor(user,1,5,"uploadDate",true)){
+        for (FileOnServer file:filesService.findAllPublicityTrueOrUserIsAuthor(user,1,5,"uploadDate",true)){
             System.out.println(file.toString());
         }
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getUserSession(){
+        System.out.println(userSessionService.toString());
+        System.out.println("****************************************************************");
+        UserSession userSession = userSessionService.findByUserId(1L);
+        System.out.println(userSession.toString());
         System.out.println("****************************************************************");
     }
 }
