@@ -128,18 +128,14 @@ public class User {
 
         User user = (User) o;
 
-        if (getViewedCount() != user.getViewedCount()) return false;
-        if (!getFullname().equals(user.getFullname())) return false;
         if (!getUsername().equals(user.getUsername())) return false;
         return getCreatedDate() != null ? getCreatedDate().equals(user.getCreatedDate()) : user.getCreatedDate() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getFullname().hashCode();
-        result = 31 * result + getUsername().hashCode();
+        int result = getUsername().hashCode();
         result = 31 * result + (getCreatedDate() != null ? getCreatedDate().hashCode() : 0);
-        result = 31 * result + (int) (getViewedCount() ^ (getViewedCount() >>> 32));
         return result;
     }
 
