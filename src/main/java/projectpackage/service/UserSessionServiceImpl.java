@@ -3,6 +3,7 @@ package projectpackage.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projectpackage.i18n.WebLocale;
+import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.repositories.AuthRepositories.UserSessionRepository;
 
@@ -21,9 +22,11 @@ public class UserSessionServiceImpl implements UserSessionService {
     }
 
     @Override
-    public UserSession createUserSession(Long userId) {
+    public UserSession createUserSession(User user) {
         UserSession session = new UserSession();
-        session.setUserId(userId);
+        session.setUserId(user.getId());
+        session.setUsername(user.getUsername());
+        session.setFullname(user.getFullname());
         session.setLocale(WebLocale.ru);
         session.setFilesQuantity(10);
         session.setFilesOffset(1);

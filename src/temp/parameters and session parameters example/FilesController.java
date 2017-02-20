@@ -8,11 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import projectpackage.model.AuthEntities.User;
-import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
-import projectpackage.support.SessionTool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -107,29 +105,26 @@ public class FilesController {
         return "/error/404";
     }
 
-    @RequestMapping(value="filelist")
-    public String fileListPage(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Long userId = (Long) request.getSession().getAttribute("UserId");
-        UserSession userSession = SessionTool.getUserSessionParametersFromSession(request.getSession(), userService);
-        Integer quantity = userSession.getFilesQuantity();
-        Integer offset = userSession.getFilesOffset();
-        String sortParameter = userSession.getFilesSortParameter();
-        Boolean ascend = userSession.isFilesAscend();
-
+    @RequestMapping(value="filelist", params = {"for", "show", "sort", "ascend"})
+    public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") String ascendString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        Boolean ascend;
+        if (ascendString == null || ascendString.equals("")) {
+            ascend = false;
+        } else ascend = Boolean.parseBoolean(ascendString);
         Integer filesQuantity = offset+quantity;
-        if (sortParameter==null || sortParameter.equals("")){
-            sortParameter="uploadDate";
+        if (parameter==null || parameter.equals("")){
+            parameter="uploadDate";
         }
+        Long ownId= (Long) request.getSession().getAttribute("OWN_USER_ID");
+        if (ownId==null) ownId=1L;
 
-        if (userId==null) userId=1L;
-
-        User myself = userService.findOne(userId);
-        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, sortParameter, ascend);
+        User myself = userService.findOne(ownId);
+        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, parameter, ascend);
 
         request.getSession().setAttribute("filesQuantity", quantity);
         request.getSession().setAttribute("filesOffset", offset);
-        request.getSession().setAttribute("filesParameter", sortParameter);
-        request.getSession().setAttribute("filesAscend", ascend);
+        request.getSession().setAttribute("filesParameter", parameter);
+        request.getSession().setAttribute("filesAscend", ascendString);
 
         map.put("filesList", filesList);
         return "filelist";

@@ -13,6 +13,8 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "FILES")
 public class FileOnServer {
+    transient public static final int DEFAULTSHOWQUANTITY = 5;
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "FILE_ID")

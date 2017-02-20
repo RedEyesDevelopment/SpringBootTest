@@ -21,6 +21,12 @@ public class UserSession {
     @Column(name = "SESSION_USER_ID")
     private long userId;
 
+    @Transient
+    transient private String username;
+
+    @Transient
+    transient private String fullname;
+
     @Column(name = "FILES_QUANTITY")
     private int filesQuantity;
 
@@ -51,6 +57,22 @@ public class UserSession {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public int getFilesQuantity() {
@@ -100,23 +122,26 @@ public class UserSession {
 
         UserSession that = (UserSession) o;
 
-        if (getUserId() != that.getUserId()) return false;
-        if (getFilesQuantity() != that.getFilesQuantity()) return false;
-        if (getFilesOffset() != that.getFilesOffset()) return false;
-        if (isFilesAscend() != that.isFilesAscend()) return false;
-        if (getFilesSortParameter() != null ? !getFilesSortParameter().equals(that.getFilesSortParameter()) : that.getFilesSortParameter() != null)
-            return false;
-        return getLocale() == that.getLocale();
+        return getUserId() == that.getUserId();
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getUserId() ^ (getUserId() >>> 32));
-        result = 31 * result + getFilesQuantity();
-        result = 31 * result + getFilesOffset();
-        result = 31 * result + (getFilesSortParameter() != null ? getFilesSortParameter().hashCode() : 0);
-        result = 31 * result + (isFilesAscend() ? 1 : 0);
-        result = 31 * result + getLocale().hashCode();
-        return result;
+        return (int) (getUserId() ^ (getUserId() >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "UserSession{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", username='" + username + '\'' +
+                ", fullname='" + fullname + '\'' +
+                ", filesQuantity=" + filesQuantity +
+                ", filesOffset=" + filesOffset +
+                ", filesSortParameter='" + filesSortParameter + '\'' +
+                ", filesAscend=" + filesAscend +
+                ", locale=" + locale +
+                '}';
     }
 }

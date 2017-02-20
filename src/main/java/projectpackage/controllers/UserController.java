@@ -54,8 +54,8 @@ public class UserController {
         userService.save(userForm);
         securityService.autologin(userForm.getUsername(), userForm.getConfirmPassword());
         User newUser = userService.findByUsername(userForm.getUsername());
-        UserSession newUserSession= userSessionService.createUserSession(newUser.getId());
-        SessionTool.fillSessionWithUserSessionInfo(request.getSession(), newUser, newUserSession);
+        UserSession newUserSession= userSessionService.createUserSession(newUser);
+        SessionTool.fillSessionWithUserParameters(request.getSession(), newUserSession);
         return "redirect:/index";
     }
 
@@ -83,6 +83,11 @@ public class UserController {
             return "redirect:/login";
         }
 
+        User user = userService.findByUsername(securityService.findLoggedInUsername());
+        UserSession userSession = userSessionService.findByUserId(user.getId());
+        userSession.setUsername(user.getUsername());
+        userSession.setFullname(user.getFullname());
+        SessionTool.fillSessionWithUserParameters(request.getSession(), userSession);
         return "redirect:/index";
     }
 

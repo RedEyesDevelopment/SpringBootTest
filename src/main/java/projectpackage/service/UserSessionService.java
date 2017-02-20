@@ -1,5 +1,6 @@
 package projectpackage.service;
 
+import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 
 /**
@@ -7,5 +8,5 @@ import projectpackage.model.AuthEntities.UserSession;
  */
 public interface UserSessionService {
     UserSession findByUserId(Long userId);
-    UserSession createUserSession(Long userId);
+    UserSession createUserSession(User user);
 }

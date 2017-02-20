@@ -13,6 +13,7 @@ import projectpackage.repositories.FilesRepositories.CustomFilesRepository;
 import projectpackage.repositories.InternationalizationRepositories.InterMessageRepository;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
+import projectpackage.support.SessionTool;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,6 +38,9 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Autowired
     CustomFilesRepository customFilesRepository;
+
+    @Autowired
+    SessionTool sessionTool;
 
     @Autowired
     UserSessionRepository userSessionRepository;
