@@ -35,7 +35,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user==null) {
             return null;
         }
-        System.out.println("UserDetailsServiceImpl: "+user.toString());
         for (Role role : user.getRoles()) {
             grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }

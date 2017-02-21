@@ -13,11 +13,11 @@ import projectpackage.service.SecurityServices.SecurityService;
 import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
 import projectpackage.support.SessionTool;
-import projectpackage.validators.AuthValidation;
 import projectpackage.validators.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 /**
  * Created by Gvozd on 07.01.2017.
@@ -76,9 +76,9 @@ public class UserController {
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     public String doLogin(String username, String password, HttpServletResponse response, HttpServletRequest request, Model model){
 
-        String result = (String) securityService.autologin(username, password).toString();
+        boolean result = (boolean) securityService.autologin(username, password);
 
-        if (result.equals(AuthValidation.IncorrectCredentials)){
+        if (!result){
             model.addAttribute("error", "Username or password incorrect");
             return "redirect:/login";
         }
@@ -88,6 +88,7 @@ public class UserController {
         userSession.setUsername(user.getUsername());
         userSession.setFullname(user.getFullname());
         SessionTool.fillSessionWithUserParameters(request.getSession(), userSession);
+        response.setLocale(new Locale.Builder().setLanguage(userSession.getLocale().getLocale()).setRegion(userSession.getLocale().getLocale()).build());
         return "redirect:/index";
     }
 

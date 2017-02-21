@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import projectpackage.validators.AuthValidation;
 
 /**
  * Created by Gvozd on 07.01.2017.
@@ -29,16 +28,12 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails){
-            return ((UserDetails) userDetails).getUsername();
-        }
-        return null;
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userName;
     }
 
     @Override
-    public AuthValidation autologin(String username, String password) {
-        log.warn("SecurityServiceImpl:autologin, username="+username+" password="+password);
+    public Boolean autologin(String username, String password) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 //        String encodedPassword = bCryptPasswordEncoder.encode(password);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
@@ -46,9 +41,9 @@ public class SecurityServiceImpl implements SecurityService {
         if (usernamePasswordAuthenticationToken.isAuthenticated()){
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             log.info("autologin");
-            return AuthValidation.NoError;
+            return true;
         } else {
-            return AuthValidation.IncorrectCredentials;
+            return false;
         }
     }
 }
