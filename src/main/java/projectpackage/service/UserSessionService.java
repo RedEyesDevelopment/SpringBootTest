@@ -9,4 +9,5 @@ import projectpackage.model.AuthEntities.UserSession;
 public interface UserSessionService {
     UserSession findByUserId(Long userId);
     UserSession createUserSession(User user);
+    void save(UserSession userSession);
 }

@@ -30,9 +30,6 @@ public class UserSession {
     @Column(name = "FILES_QUANTITY")
     private int filesQuantity;
 
-    @Column(name = "FILES_OFFSET")
-    private int filesOffset;
-
     @Column(name = "FILES_SORT")
     private String filesSortParameter;
 
@@ -83,14 +80,6 @@ public class UserSession {
         this.filesQuantity = filesQuantity;
     }
 
-    public int getFilesOffset() {
-        return filesOffset;
-    }
-
-    public void setFilesOffset(int filesOffset) {
-        this.filesOffset = filesOffset;
-    }
-
     public String getFilesSortParameter() {
         return filesSortParameter;
     }
@@ -138,7 +127,6 @@ public class UserSession {
                 ", username='" + username + '\'' +
                 ", fullname='" + fullname + '\'' +
                 ", filesQuantity=" + filesQuantity +
-                ", filesOffset=" + filesOffset +
                 ", filesSortParameter='" + filesSortParameter + '\'' +
                 ", filesAscend=" + filesAscend +
                 ", locale=" + locale +

@@ -7,9 +7,9 @@ insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('System_Programmer', 'sys
 insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('Admin', 'admin', '$2a$11$iXOUawTHBNAswdVWdHF9EuveOseXTB88egGfzBb.9Y.T.96ipQrte');
 insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('QwertyUser', 'qwerty', '$2a$11$mYwze2v1YQgcj7kwvXLkOOWgwqwMwimWVaCloEzA0ibfLLEYcgxXm');
 
-insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('1', '10', '1', 'uploadDate', 1, "ru");
-insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', '1', 'uploadDate', 1, "ru");
-insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_OFFSET, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', '1', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('1', '10', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', 'uploadDate', 1, "ru");
 
 
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('1', '2');
@@ -35,7 +35,7 @@ insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_ie.png', 'png', 'Internet Explo#5@!^...', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_mail.png', 'png', 'Mail', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_mail_1.png', 'png', 'Mail', '1', 1, 1);
-insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_maxhton.png', 'png', 'WhatIsIt?', '1', 1, 1);
+insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_maxthon.png', 'png', 'WhatIsIt?', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_netscape.png', 'png', 'Netscape browser', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_newfile.png', 'png', 'New file', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_next.png', 'png', 'Next', '1', 1, 1);

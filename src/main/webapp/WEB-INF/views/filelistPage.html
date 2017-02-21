@@ -4,32 +4,27 @@
     <title>FileList</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/res/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/res/css/filelist.css1" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div id="filemenu">
-    <button id="searchFilesButton" class="btn btn-primary"><th th:text="#{fileslistpage.searchbutton}"/></button>
-    <form th:action="@{/fileapi/filelist(for=10,show=1,sort='filename',ascend=true)}"><input type="submit" id="sortByFilename" class="btn btn-primary" th:value="#{fileslistpage.sortfilenamebutton}"/></form>
-    <button id="sortByAuthor" class="btn btn-primary"><th th:text="#{fileslistpage.sortauthorbutton}"/></button>
-    <button id="sortByType" class="btn btn-primary"><th th:text="#{fileslistpage.sorttypebutton}"/></button>
-    <button id="sortByUploadedDate" class="btn btn-primary"><th th:text="#{fileslistpage.sortuploaddatebutton}"/></button>
+    <a th:href="SEARCHPAGE" id="searchFilesButton" class="btn btn-primary"><th th:text="#{fileslistpage.searchbutton}"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${session.filesAscend})}" id="sortByAlternative" class="btn btn-primary" th:value="#{fileslistpage.sortfilenamebutton}"><span id="alternativeCaret" class="buttoncarets caret"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='SORTMEBYAUTHOR',ascend=${session.filesAscend})}" id="sortByAuthor" class="btn btn-primary" onclick=""><th th:text="#{fileslistpage.sortauthorbutton}"/><span id="authorCaret" class="buttoncarets caret"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${session.filesAscend})}" id="sortByType" class="btn btn-primary"><th th:text="#{fileslistpage.sorttypebutton}"/><span id="extensionCaret" class="buttoncarets caret"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='uploadDate',ascend=${session.filesAscend})}" id="sortByUploadedDate" class="btn btn-primary"><th th:text="#{fileslistpage.sortuploaddatebutton}"/><span id="uploadDateCaret" class="buttoncarets caret"></span></a>
     <div class="dropdown">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><th th:text="#{fileslistpage.changefilesquantity}"/>
             <span class="caret"></span></button>
         <ul class="dropdown-menu">
-            <li><a th:href="@{/fileapi/filelist(for=2,show=1,sort='filename',ascend=true)}">2</a></li>
-            <li><a th:href="@{/fileapi/filelist(for=5,show=1,sort='filename',ascend=true)}">5</a></li>
-            <li><a th:href="@{/fileapi/filelist(for=10,show=1,sort='filename',ascend=true)}">10</a></li>
+            <li><a th:href="@{/fileapi/filelist(for=2,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">2</a></li>
+            <li><a th:href="@{/fileapi/filelist(for=5,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">5</a></li>
+            <li><a th:href="@{/fileapi/filelist(for=10,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">10</a></li>
         </ul>
     </div>
 </div>
-
-Session quantity: <p th:text="${session.filesQuantity}"></p>
-Parameter quantity(for): <p th:text="${T(Integer).parseInt(param.for)}"></p>
-******************************
-http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
-******************************
 
 <table th:each="fileitem : ${filesList}">
     <tr>
@@ -47,5 +42,10 @@ http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
 <div id="navsection">
 
 </div>
+
+******************************
+http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
+******************************
+
 </body>
 </html>

@@ -20,9 +20,18 @@ public class CustomFilesRepositoryImpl implements CustomFilesRepository {
 
     @Override
     public List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int offset, String sortingParameter, boolean ascend) {
-        TypedQuery query = entityManagerFactory.createEntityManager().createQuery("select f from FileOnServer f where f.publicity = true or f.author = ?1 order by ?2", FileOnServer.class);
-        query.setParameter(1, user);
-        query.setParameter(2, sortingParameter);
+        String order;
+        if (ascend) {
+            order="asc";
+        } else order="desc";
+
+        StringBuilder hql = new StringBuilder("SELECT f from FileOnServer f WHERE f.publicity = true or f.author = :author ORDER BY f.");
+        hql.append(sortingParameter);
+        hql.append(" ");
+        hql.append(order);
+
+        TypedQuery query = entityManagerFactory.createEntityManager().createQuery(hql.toString(), FileOnServer.class);
+        query.setParameter("author", user);
         query.setFirstResult(startingCount);
         query.setMaxResults(offset);
         return query.getResultList();

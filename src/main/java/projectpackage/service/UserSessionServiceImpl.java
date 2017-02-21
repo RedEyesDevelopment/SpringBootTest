@@ -29,9 +29,13 @@ public class UserSessionServiceImpl implements UserSessionService {
         session.setFullname(user.getFullname());
         session.setLocale(WebLocale.ru);
         session.setFilesQuantity(10);
-        session.setFilesOffset(1);
         session.setFilesSortParameter("uploadDate");
         session.setFilesAscend(true);
         return userSessionRepository.save(session);
+    }
+
+    @Override
+    public void save(UserSession userSession) {
+        userSessionRepository.save(userSession);
     }
 }

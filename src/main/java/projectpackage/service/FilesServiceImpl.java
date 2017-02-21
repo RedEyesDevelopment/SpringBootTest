@@ -44,6 +44,7 @@ public class FilesServiceImpl implements FilesService {
     }
 
     public List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int offset, String sortingParameter, boolean ascend){
+        System.out.println("IN SORTING: ascend="+ascend);
         return customFilesRepository.findAllPublicityTrueOrUserIsAuthor(user, startingCount, offset, sortingParameter, ascend);
     }
 

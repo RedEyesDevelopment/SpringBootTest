@@ -6,17 +6,14 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import projectpackage.components.CustomDatabaseMessageSource;
-import projectpackage.interceptors.NotAuthorizedInterceptor;
 
 /**
  * Created by Gvozd on 30.12.2016.
@@ -77,17 +74,6 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         int maxFileUploadSizeInt = Integer.parseInt(maxFileUploadSize)*1024*1024;
         multipartResolver.setMaxUploadSizePerFile(maxFileUploadSizeInt);
         return multipartResolver;
-    }
-
-    // Добавление хэндлер интерцептора в конструкцию МВС
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(notAuthorizedInterceptor());
-    }
-
-    @Bean
-    HandlerInterceptor notAuthorizedInterceptor(){
-        return new NotAuthorizedInterceptor();
     }
 
 }

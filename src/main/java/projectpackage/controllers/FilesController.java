@@ -11,6 +11,8 @@ import projectpackage.model.AuthEntities.User;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
+import projectpackage.service.UserSessionService;
+import projectpackage.support.SessionTool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,6 +36,9 @@ public class FilesController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    UserSessionService userSessionService;
 
     @RequestMapping("upload")
     public String fileUploadPage() {
@@ -107,7 +112,7 @@ public class FilesController {
 
     @RequestMapping(value="filelist", params = {"for", "show", "sort", "ascend"})
     public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") Boolean ascend, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Integer filesQuantity = offset+quantity;
+        Integer filesQuantityToRetrieveFromDatabase = offset+quantity;
         if (parameter==null || parameter.equals("")){
             parameter="uploadDate";
         }
@@ -115,9 +120,19 @@ public class FilesController {
         Long userId = (Long) request.getSession().getAttribute("UserId");
 
         User myself = userService.findOne(userId);
-        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity-1, parameter, ascend);
+        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantityToRetrieveFromDatabase, parameter, ascend);
+
+        SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, parameter, ascend);
+
+        StringBuilder buttonSpanStylesheet = new StringBuilder("/res/css/filesSection");
+        buttonSpanStylesheet.append(parameter);
+        buttonSpanStylesheet.append("-");
+        buttonSpanStylesheet.append(ascend);
+        buttonSpanStylesheet.append(".css");
 
         map.put("filesList", filesList);
+        map.put("offset", offset);
+        map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
         return "filelistPage";
     }
 
