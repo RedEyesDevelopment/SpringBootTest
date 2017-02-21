@@ -10,7 +10,7 @@
 <body>
 <div id="filemenu">
     <button id="searchFilesButton" class="btn btn-primary"><th th:text="#{fileslistpage.searchbutton}"/></button>
-    <form th:action="@{/fileapi/filelist(for=10,show=1,sort='filename',ascend=true)}"><input type="submit" id="sortByFilename" class="btn btn-primary"><th th:text="#{fileslistpage.sortfilenamebutton}"/></input></form>
+    <form th:action="@{/fileapi/filelist(for=10,show=1,sort='filename',ascend=true)}"><input type="submit" id="sortByFilename" class="btn btn-primary" th:value="#{fileslistpage.sortfilenamebutton}"/></form>
     <button id="sortByAuthor" class="btn btn-primary"><th th:text="#{fileslistpage.sortauthorbutton}"/></button>
     <button id="sortByType" class="btn btn-primary"><th th:text="#{fileslistpage.sorttypebutton}"/></button>
     <button id="sortByUploadedDate" class="btn btn-primary"><th th:text="#{fileslistpage.sortuploaddatebutton}"/></button>

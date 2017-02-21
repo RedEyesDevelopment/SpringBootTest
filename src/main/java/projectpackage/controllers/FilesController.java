@@ -115,7 +115,7 @@ public class FilesController {
         Long userId = (Long) request.getSession().getAttribute("UserId");
 
         User myself = userService.findOne(userId);
-        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity, parameter, ascend);
+        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantity-1, parameter, ascend);
 
         map.put("filesList", filesList);
         return "filelistPage";
