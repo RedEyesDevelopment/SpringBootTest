@@ -20,7 +20,7 @@
                    id="sortByAlternative" class="btn btn-primary">
                     <th th:text="#{fileslistpage.sortfilenamebutton}"/>
                     <span id="alternativeCaret" class="buttoncarets caret"/></a>
-                <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='SORTMEBYAUTHOR',ascend=${session.filesAscend})}"
+                <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend=${session.filesAscend})}"
                    id="sortByAuthor" class="btn btn-primary">
                     <th th:text="#{fileslistpage.sortauthorbutton}"/>
                     <span id="authorCaret" class="buttoncarets caret"/></a>
