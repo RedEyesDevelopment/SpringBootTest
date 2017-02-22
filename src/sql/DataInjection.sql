@@ -76,4 +76,6 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.sortuploaddatebutton', 'ru', 'Создан', 'список файлов, название заголовка');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.sortauthorbutton', 'ru', 'Автор', 'список файлов, название заголовка');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.changefilesquantity', 'ru', 'Показать', 'список файлов, название заголовка смены количества файлов');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.searchlabel', 'ru', 'Введите название или часть названия файла', 'лейба поиска файлов');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.searchformbutton', 'ru', 'Искать', 'кнопка поиска файлов');
 

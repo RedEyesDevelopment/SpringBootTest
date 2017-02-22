@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>FileList</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/res/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/res/css/filelist.css" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="/res/js/filelistShowhidden.js"></script>
+</head>
+<body>
+<div id="filemenu">
+    <button id="searchFilesButton" class="btn btn-primary" onclick="doUnhide()">
+        <th th:text="#{fileslistpage.searchbutton}"/>
+    </button>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${session.filesAscend})}"
+       id="sortByAlternative" class="btn btn-primary">
+        <th th:text="#{fileslistpage.sortfilenamebutton}"/>
+        <span id="alternativeCaret" class="buttoncarets caret"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='SORTMEBYAUTHOR',ascend=${session.filesAscend})}"
+       id="sortByAuthor" class="btn btn-primary">
+        <th th:text="#{fileslistpage.sortauthorbutton}"/>
+        <span id="authorCaret" class="buttoncarets caret"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${session.filesAscend})}"
+       id="sortByType" class="btn btn-primary">
+        <th th:text="#{fileslistpage.sorttypebutton}"/>
+        <span id="extensionCaret" class="buttoncarets caret"/></a>
+    <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='uploadDate',ascend=${session.filesAscend})}"
+       id="sortByUploadedDate" class="btn btn-primary">
+        <th th:text="#{fileslistpage.sortuploaddatebutton}"/>
+        <span id="uploadDateCaret" class="buttoncarets glyphicon glyphicon-triangle-bottom"></span></a>
+    <span class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            <th th:text="#{fileslistpage.changefilesquantity}"/>
+            <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            <li>
+                <a th:href="@{/fileapi/filelist(for=2,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">2</a>
+            </li>
+            <li>
+                <a th:href="@{/fileapi/filelist(for=5,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">5</a>
+            </li>
+            <li>
+                <a th:href="@{/fileapi/filelist(for=10,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">10</a>
+            </li>
+        </ul>
+    </span>
+
+    <span id="searchForm">
+        <form method="POST" th:action="@{/fileapi/search}">
+        <div class="col-sm-8">
+            <input type="text" name="searchString" class="form-control" th:placeholder="#{fileslistpage.searchlabel}"
+                   autofocus="true"/>
+        </div>
+        <div class="col-sm-4">
+            <input type="submit" class="btn btn-success" value="Sign In" th:value="#{fileslistpage.searchformbutton}"/>
+        </div>
+        </form>
+    </span>
+
+</div>
+
+<br/>
+<br/>
+
+<table th:each="fileitem : ${filesList}">
+    <tr>
+        <div id="fileContentSection">
+            <p th:text="#{fileslistpage.sortfilenamebutton}+': '+${fileitem.alternative}"/>
+            <p th:text="#{fileslistpage.sorttypebutton}+': '+${fileitem.extension}"/>
+            <p th:text="#{fileslistpage.sortuploaddatebutton}+': '+${#calendars.format(fileitem.uploadDate, 'dd MMM yyyy HH:mm')}"/>
+            <p th:text="#{fileslistpage.sortauthorbutton}+': '+${fileitem.author.fullname}"/>
+            <img th:src="${'/dynamic/'+fileitem.filename}" th:alt="${fileitem.alternative}"
+                 height="100"/>
+        </div>
+    </tr>
+</table>
+
+<div id="navsection">
+
+</div>
+
+******************************
+http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
+******************************
+
+</body>
+</html>

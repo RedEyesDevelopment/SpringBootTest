@@ -42,7 +42,7 @@ public class FilesController {
 
     @RequestMapping("upload")
     public String fileUploadPage() {
-        return "fileupload";
+        return "files/fileupload";
     }
 
     @RequestMapping(value="doUpload", method = RequestMethod.POST)
@@ -112,7 +112,6 @@ public class FilesController {
 
     @RequestMapping(value="filelist", params = {"for", "show", "sort", "ascend"})
     public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") Boolean ascend, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Integer filesQuantityToRetrieveFromDatabase = offset+quantity;
         if (parameter==null || parameter.equals("")){
             parameter="uploadDate";
         }
@@ -120,7 +119,7 @@ public class FilesController {
         Long userId = (Long) request.getSession().getAttribute("UserId");
 
         User myself = userService.findOne(userId);
-        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, filesQuantityToRetrieveFromDatabase, parameter, ascend);
+        List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, quantity, parameter, ascend);
 
         SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, parameter, ascend);
 
@@ -133,7 +132,7 @@ public class FilesController {
         map.put("filesList", filesList);
         map.put("offset", offset);
         map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
-        return "filelistPage";
+        return "files/filelistPage";
     }
 
 //    @RequestMapping("uploadedFileProperties")

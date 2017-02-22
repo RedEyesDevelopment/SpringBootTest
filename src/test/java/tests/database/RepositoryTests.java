@@ -124,7 +124,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
         User user = userService.findOne(2L);
-        for (FileOnServer file:filesService.findAllPublicityTrueOrUserIsAuthor(user,0,20,"alternative",false)){
+        for (FileOnServer file:filesService.findAllPublicityTrueOrUserIsAuthor(user,5,5,"alternative",false)){
             System.out.println(file.toString());
         }
         System.out.println("****************************************************************");
