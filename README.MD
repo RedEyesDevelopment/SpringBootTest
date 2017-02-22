@@ -19,3 +19,9 @@ http://docs.cksource.com/CKEditor_3.x/Howto
 https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html#repositories.special-parameters
 https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-part-seven-pagination/
 http://docs.spring.io/spring-data/rest/docs/1.1.x/reference/html/paging-chapter.html
+
+
+
+******************************
+http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
+******************************
