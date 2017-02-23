@@ -144,6 +144,18 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
+    public void getFilePageableListWithSearchString(){
+        System.out.println(filesService.toString());
+        System.out.println("****************************************************************");
+        User user = userService.findOne(2L);
+        for (FileOnServer file:filesService.findByAlternativeLike("gift")){
+            System.out.println(file.toString());
+        }
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
     public void getUserSession(){
         System.out.println(userSessionService.toString());
         System.out.println("****************************************************************");

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import projectpackage.model.AuthEntities.User;
+import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
@@ -133,6 +134,19 @@ public class FilesController {
         map.put("offset", offset);
         map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
         return "files/filelistPage";
+    }
+
+    @RequestMapping("search")
+    public String fileSearchResultPage(String searhable, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        List<FileOnServer> fileOnServers = filesService.findByAlternativeLike(searhable);
+
+        UserSession userSession = SessionTool.getUserSessionParametersFromSession(request.getSession(), userService);
+        map.put("filesList", fileOnServers);
+        map.put("offset", 0);
+        map.put("sort", userSession.getFilesSortParameter());
+        map.put("quantity", userSession.getFilesQuantity());
+        map.put("ascend", userSession.isFilesAscend());
+        return "files/filesearch";
     }
 
 //    @RequestMapping("uploadedFileProperties")

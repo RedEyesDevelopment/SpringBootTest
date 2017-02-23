@@ -30,8 +30,8 @@ public class FilesServiceImpl implements FilesService {
     }
 
     @Override
-    public FileOnServer findByFilename(String filename) {
-        return filesRepository.findByFilename(filename);
+    public List<FileOnServer> findByAlternativeLike(String searchable) {
+        return filesRepository.findByAlternativeContaining(searchable);
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface FilesService {
     void save(FileOnServer file);
-    FileOnServer findByFilename(String filename);
+    List<FileOnServer> findByAlternativeLike(String searchable);
     FileOnServer findOne(Integer id);
     Page<FileOnServer> findAll(int startingCount, int endingCount, String sortingParameter, boolean ascend);
     List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int offset, String sortingParameter, boolean ascend);
