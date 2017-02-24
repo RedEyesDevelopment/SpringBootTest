@@ -13,6 +13,7 @@ import projectpackage.model.Files.FileOnServer;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
+import projectpackage.support.PaginationTool;
 import projectpackage.support.SessionTool;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,15 +125,17 @@ public class FilesController {
 
         SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, parameter, ascend);
 
-        StringBuilder buttonSpanStylesheet = new StringBuilder("/res/css/filesSection");
-        buttonSpanStylesheet.append(parameter);
-        buttonSpanStylesheet.append("-");
-        buttonSpanStylesheet.append(ascend);
-        buttonSpanStylesheet.append(".css");
+//        StringBuilder buttonSpanStylesheet = new StringBuilder("/res/css/filesSection");
+//        buttonSpanStylesheet.append(parameter);
+//        buttonSpanStylesheet.append("-");
+//        buttonSpanStylesheet.append(ascend);
+//        buttonSpanStylesheet.append(".css");
+//        map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
+
+        PaginationTool.getPagesCollection(filesService, quantity, offset, parameter, ascend);
 
         map.put("filesList", filesList);
         map.put("offset", offset);
-        map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
         return "files/filelistPage";
     }
 

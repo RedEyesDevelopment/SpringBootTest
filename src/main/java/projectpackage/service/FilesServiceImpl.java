@@ -47,5 +47,10 @@ public class FilesServiceImpl implements FilesService {
         return customFilesRepository.findAllPublicityTrueOrUserIsAuthor(user, startingCount, offset, sortingParameter, ascend);
     }
 
+    @Override
+    public long count() {
+        return filesRepository.count();
+    }
+
 
 }

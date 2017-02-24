@@ -15,4 +15,5 @@ public interface FilesService {
     FileOnServer findOne(Integer id);
     Page<FileOnServer> findAll(int startingCount, int endingCount, String sortingParameter, boolean ascend);
     List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int offset, String sortingParameter, boolean ascend);
+    long count();
 }
