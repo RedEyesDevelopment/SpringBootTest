@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"/>
     <title>File Search</title>
-    <link href="/res/css/bootstrap/bootstrap.min.css" rel="stylesheet"/
+    <link href="/res/css/bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
 <div class="btn-group btn-group-justified">
-    <a href="" class="btn btn-primary"><th th:text="#{filessearchpage.returnbutton}"/></a>
+    <a th:href="@{/fileapi/filelist(for=${quantity},show=0,sort=${sort},ascend=${ascend})}" class="btn btn-primary"><th th:text="#{filessearchpage.returnbutton}"/></a>
 </div>
 
 <div class="col-sm-12">

@@ -66,8 +66,8 @@
 
 
 <div class="col-sm-12">
-    <table th:each="fileitem : ${filesList}">
-        <tr>
+    <table th:each="fileitem : ${filesList}" class="table table-striped">
+        <tr class="tableContent">
             <div id="fileContentSection">
                 <p th:text="#{fileslistpage.sortfilenamebutton}+': '+${fileitem.alternative}"/>
                 <p th:text="#{fileslistpage.sorttypebutton}+': '+${fileitem.extension}"/>

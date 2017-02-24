@@ -137,12 +137,11 @@ public class FilesController {
     }
 
     @RequestMapping("search")
-    public String fileSearchResultPage(String searhable, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        List<FileOnServer> fileOnServers = filesService.findByAlternativeLike(searhable);
+    public String fileSearchResultPage(String searchString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        List<FileOnServer> fileOnServers = filesService.findByAlternativeLike(searchString);
 
         UserSession userSession = SessionTool.getUserSessionParametersFromSession(request.getSession(), userService);
         map.put("filesList", fileOnServers);
-        map.put("offset", 0);
         map.put("sort", userSession.getFilesSortParameter());
         map.put("quantity", userSession.getFilesQuantity());
         map.put("ascend", userSession.isFilesAscend());
