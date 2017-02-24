@@ -31,4 +31,18 @@ public class PagesCollection implements Serializable{
     public void add(PaginationLink paginationLink){
         pages.add(paginationLink);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("PagesCollection{" +
+                ", count=" + count);
+        sb.append("PaginationLinks: ");
+        sb.append("\n");
+        for (PaginationLink paginationLink:pages){
+            sb.append(paginationLink);
+            sb.append("\n");
+        }
+        sb.append("PagesCollection:Finish");
+        return sb.toString();
+    }
 }

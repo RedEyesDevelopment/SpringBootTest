@@ -13,6 +13,7 @@ import projectpackage.repositories.InternationalizationRepositories.InterMessage
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
+import projectpackage.support.PaginationTool;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -161,6 +162,15 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println("****************************************************************");
         UserSession userSession = userSessionService.findByUserId(1L);
         System.out.println(userSession.toString());
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getFileListPages(){
+        System.out.println(filesService.toString());
+        System.out.println("****************************************************************");
+        System.out.println(PaginationTool.getFilesPageCollection(filesService,2,12,"uploadDate",true));
         System.out.println("****************************************************************");
     }
 }

@@ -56,4 +56,13 @@ public class PaginationLink {
         result = 31 * result + (isDisabled() ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "PaginationLink{" +
+                "pageIndex='" + pageIndex + '\'' +
+                ", pageLink='" + pageLink + '\'' +
+                ", disabled=" + disabled +
+                '}';
+    }
 }

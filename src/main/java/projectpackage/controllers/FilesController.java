@@ -132,7 +132,7 @@ public class FilesController {
 //        buttonSpanStylesheet.append(".css");
 //        map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
 
-        PaginationTool.getPagesCollection(filesService, quantity, offset, parameter, ascend);
+        PaginationTool.getFilesPageCollection(filesService, quantity, offset, parameter, ascend);
 
         map.put("filesList", filesList);
         map.put("offset", offset);
