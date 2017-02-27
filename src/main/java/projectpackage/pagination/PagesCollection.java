@@ -24,9 +24,9 @@ public class PagesCollection implements Serializable{
         return count;
     }
 
-    public void setCount(long count) {
-        this.count = count;
-    }
+//    public void setCount(long count) {
+//        this.count = count;
+//    }
 
     public void add(PaginationLink paginationLink){
         pages.add(paginationLink);

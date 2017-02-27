@@ -11,47 +11,47 @@
 </head>
 <body>
 <div id="filemenu">
-            <div id="buttonMenu" class="btn-group btn-group-justified">
-                <a id="searchFilesButton" data-toggle="collapse" data-target="#searchForm" class="btn btn-primary"
-                   onclick="doUnhide()">
-                    <th th:text="#{fileslistpage.searchbutton}"/>
-                </a>
-                <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${session.filesAscend})}"
-                   id="sortByAlternative" class="btn btn-primary">
-                    <th th:text="#{fileslistpage.sortfilenamebutton}"/>
-                    <span id="alternativeCaret" class="buttoncarets caret"/></a>
-                <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend=${session.filesAscend})}"
-                   id="sortByAuthor" class="btn btn-primary">
-                    <th th:text="#{fileslistpage.sortauthorbutton}"/>
-                    <span id="authorCaret" class="buttoncarets caret"/></a>
-                <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${session.filesAscend})}"
-                   id="sortByType" class="btn btn-primary">
-                    <th th:text="#{fileslistpage.sorttypebutton}"/>
-                    <span id="extensionCaret" class="buttoncarets caret"/></a>
-                <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='uploadDate',ascend=${session.filesAscend})}"
-                   id="sortByUploadedDate" class="btn btn-primary">
-                    <th th:text="#{fileslistpage.sortuploaddatebutton}"/>
-                    <span id="uploadDateCaret" class="buttoncarets glyphicon glyphicon-triangle-bottom"></span></a>
+    <div id="buttonMenu" class="btn-group btn-group-justified">
+        <a id="searchFilesButton" data-toggle="collapse" data-target="#searchForm" class="btn btn-primary"
+           onclick="doUnhide()">
+            <th th:text="#{fileslistpage.searchbutton}"/>
+        </a>
+        <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${session.filesAscend})}"
+           id="sortByAlternative" class="btn btn-primary">
+            <th th:text="#{fileslistpage.sortfilenamebutton}"/>
+            <span id="alternativeCaret" class="buttoncarets caret"/></a>
+        <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend=${session.filesAscend})}"
+           id="sortByAuthor" class="btn btn-primary">
+            <th th:text="#{fileslistpage.sortauthorbutton}"/>
+            <span id="authorCaret" class="buttoncarets caret"/></a>
+        <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${session.filesAscend})}"
+           id="sortByType" class="btn btn-primary">
+            <th th:text="#{fileslistpage.sorttypebutton}"/>
+            <span id="extensionCaret" class="buttoncarets caret"/></a>
+        <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='uploadDate',ascend=${session.filesAscend})}"
+           id="sortByUploadedDate" class="btn btn-primary">
+            <th th:text="#{fileslistpage.sortuploaddatebutton}"/>
+            <span id="uploadDateCaret" class="buttoncarets glyphicon glyphicon-triangle-bottom"></span></a>
 
-    <div class="btn-group dropdown">
-        <a class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            <th th:text="#{fileslistpage.changefilesquantity}"/>
-            <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-            <li>
-                <a th:href="@{/fileapi/filelist(for=2,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">2</a>
-            </li>
-            <li>
-                <a th:href="@{/fileapi/filelist(for=5,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">5</a>
-            </li>
-            <li>
-                <a th:href="@{/fileapi/filelist(for=10,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">10</a>
-            </li>
-        </ul>
+        <div class="btn-group dropdown">
+            <a class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                <th th:text="#{fileslistpage.changefilesquantity}"/>
+                <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a th:href="@{/fileapi/filelist(for=2,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">2</a>
+                </li>
+                <li>
+                    <a th:href="@{/fileapi/filelist(for=5,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">5</a>
+                </li>
+                <li>
+                    <a th:href="@{/fileapi/filelist(for=10,show=${offset},sort=${session.filesSortParameter},ascend=${session.filesAscend})}">10</a>
+                </li>
+            </ul>
+        </div>
     </div>
-            </div>
 
-        <span id="searchForm" class="collapse">
+    <span id="searchForm" class="collapse">
         <form method="POST" th:action="@{/fileapi/search}">
         <div class="col-sm-8">
             <input type="text" name="searchString" class="form-control" th:placeholder="#{fileslistpage.searchlabel}"
@@ -69,21 +69,28 @@
     <table th:each="fileitem : ${filesList}" class="table table-striped">
         <tbody>
         <tr class="tableContent">
-            <div id="fileContentSection">
-                <p th:text="#{fileslistpage.sortfilenamebutton}+': '+${fileitem.alternative}"/>
-                <p th:text="#{fileslistpage.sorttypebutton}+': '+${fileitem.extension}"/>
-                <p th:text="#{fileslistpage.sortuploaddatebutton}+': '+${#calendars.format(fileitem.uploadDate, 'dd MMM yyyy HH:mm')}"/>
-                <p th:text="#{fileslistpage.sortauthorbutton}+': '+${fileitem.author.fullname}"/>
-                <img th:src="${'/dynamic/'+fileitem.filename}" th:alt="${fileitem.alternative}"
-                     height="100"/>
-            </div>
+            <td>
+                <div id="fileContentSection">
+                    <p th:text="#{fileslistpage.sortfilenamebutton}+': '+${fileitem.alternative}"/>
+                    <p th:text="#{fileslistpage.sorttypebutton}+': '+${fileitem.extension}"/>
+                    <p th:text="#{fileslistpage.sortuploaddatebutton}+': '+${#calendars.format(fileitem.uploadDate, 'dd MMM yyyy HH:mm')}"/>
+                    <p th:text="#{fileslistpage.sortauthorbutton}+': '+${fileitem.author.fullname}"/>
+                    <img th:src="${'/dynamic/'+fileitem.filename}" th:alt="${fileitem.alternative}"
+                         height="100"/>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
 </div>
 
-<div id="navsection">
-
+<div class="col-sm-12">
+    <ul id="navsection" class="pagination" th:each="pageitem : ${pagesCollection.getPages()}">
+        <li th:class="'pageitem' + (${pageitem.isDisabled()} & ${pageitem.getPageIndex()!='first'} || ${pageitem.getPageIndex()!='last'}) ? 'active' : (${pageitem.isDisabled()}) ? 'disabled'">
+            <a th:href="${pageitem.getPageLink()}">
+                <th th:text="${pageitem.getPageIndex()}"/>
+            </a></li>
+    </ul>
 </div>
 
 </body>

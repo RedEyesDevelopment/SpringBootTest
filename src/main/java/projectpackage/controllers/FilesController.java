@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
+import projectpackage.pagination.PagesCollection;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
@@ -125,15 +126,9 @@ public class FilesController {
 
         SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, parameter, ascend);
 
-//        StringBuilder buttonSpanStylesheet = new StringBuilder("/res/css/filesSection");
-//        buttonSpanStylesheet.append(parameter);
-//        buttonSpanStylesheet.append("-");
-//        buttonSpanStylesheet.append(ascend);
-//        buttonSpanStylesheet.append(".css");
-//        map.put("buttonSpanStylesheet", buttonSpanStylesheet.toString());
+        PagesCollection filesPagesCollection = PaginationTool.getFilesPageCollection(filesService.count(), quantity, offset, parameter, ascend);
 
-        PaginationTool.getFilesPageCollection(filesService, quantity, offset, parameter, ascend);
-
+        map.put("pagesCollection", filesPagesCollection);
         map.put("filesList", filesList);
         map.put("offset", offset);
         return "files/filelistPage";

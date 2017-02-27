@@ -167,10 +167,10 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getFileListPages(){
+    public void getFileListPagesForPaginationPurposes(){
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
-        System.out.println(PaginationTool.getFilesPageCollection(filesService,2,12,"uploadDate",true));
+        System.out.println(PaginationTool.getFilesPageCollection(filesService.count(),2,12,"uploadDate",true));
         System.out.println("****************************************************************");
     }
 }
