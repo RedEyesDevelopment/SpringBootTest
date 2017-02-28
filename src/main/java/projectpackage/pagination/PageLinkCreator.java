@@ -7,15 +7,17 @@ import java.util.List;
  * Created by Lenovo on 24.02.2017.
  */
 public abstract class PageLinkCreator {
-    abstract PaginationLink createPaginationLink(String pageIndex, Integer quantity, Integer offset, Long objectCollectionCount, Integer currentPointer, Object[] sortingParameters);
+    abstract AbstractPaginationLink createPaginationLink(String pageIndex, Integer quantity, Integer offset, Long objectCollectionCount, Integer currentPointer, Object[] sortingParameters);
+
+    abstract void fillLinkParameters(AbstractPaginationLink paginationLink, Object[] sortingParameters, Integer offset);
 
     //Метод для генерации постраничного списка
-    public List<PaginationLink> generatePageLinks(Integer objectCollectionStartingPoint, Long objectCollectionCount, Integer currentPointer, Integer objectsOnPage, Object[] sortingParameters) {
-        List<PaginationLink> paginationLinks = new ArrayList<>();
+    public List<AbstractPaginationLink> generatePageLinks(Integer objectCollectionStartingPoint, Long objectCollectionCount, Integer currentPointer, Integer objectsOnPage, Object[] sortingParameters) {
+        List<AbstractPaginationLink> paginationLinks = new ArrayList<>();
         Integer pagesCount;
-        if ((objectCollectionCount / objectsOnPage) < PaginationLink.MAXPAGESSHOW) {
+        if ((objectCollectionCount / objectsOnPage) < AbstractPaginationLink.MAXPAGESSHOW) {
             pagesCount = Math.toIntExact(objectCollectionCount / objectsOnPage);
-        } else pagesCount = PaginationLink.MAXPAGESSHOW;
+        } else pagesCount = AbstractPaginationLink.MAXPAGESSHOW;
 
         int startingIterateValue;
         int endingIterateValue;
@@ -26,27 +28,20 @@ public abstract class PageLinkCreator {
         } else startingIterateValue = currentPointer - (halfOfPages * objectsOnPage);
         endingIterateValue = startingIterateValue + (pagesCount * objectsOnPage);
 
-        for (int i = startingIterateValue; i < endingIterateValue; i+=objectsOnPage) {
-            PaginationLink recentPaginationLink = createPaginationLink(String.valueOf((i/objectsOnPage)+1), objectsOnPage, i, objectCollectionCount, currentPointer, sortingParameters);
-            paginationLinks.add(recentPaginationLink);
+        for (int i = startingIterateValue; i < endingIterateValue; i += objectsOnPage) {
+            AbstractPaginationLink recentAbstractPaginationLink = createPaginationLink(String.valueOf((i / objectsOnPage) + 1), objectsOnPage, i, objectCollectionCount, currentPointer, sortingParameters);
+            paginationLinks.add(recentAbstractPaginationLink);
         }
         return paginationLinks;
     }
 
-    //Построение ссылки по массиву
-    static String buildLink(ArrayList<String> stringsToAppend) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String nextString : stringsToAppend) {
-            stringBuilder.append(nextString);
+    //Метод вычисления параметра disabled,active для ссылки
+    static void calculatePaginationLinkDisability(AbstractPaginationLink paginationLink, Integer objectsPerPage, Long objectCollectionCount, Integer currentPointer, Integer currentPageLinkOffset) {
+        if (currentPointer.equals(currentPageLinkOffset)) {
+            paginationLink.setActive(true);
         }
-        return stringBuilder.toString();
-    }
-
-    //Метод вычисления параметра disabled для ссылки
-    static boolean calculatePaginationLinkDissability(Integer objectsPerPage, Long objectCollectionCount, Integer currentPointer, Integer currentPageLinkOffset) {
-        if (currentPointer.equals(currentPageLinkOffset) || (objectCollectionCount - currentPointer) < objectsPerPage) {
-            return true;
+        if (((objectCollectionCount - currentPointer) < objectsPerPage) || (currentPointer.equals(0) && currentPageLinkOffset.equals(0))) {
+            paginationLink.setDisabled(true);
         }
-        return false;
     }
 }

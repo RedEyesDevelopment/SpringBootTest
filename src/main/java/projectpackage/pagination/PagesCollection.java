@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Lenovo on 24.02.2017.
  */
 public class PagesCollection implements Serializable{
-    private List<PaginationLink> pages;
+    private List<AbstractPaginationLink> pages;
     private long count;
 
     public PagesCollection(Long itemsCount) {
@@ -16,7 +16,7 @@ public class PagesCollection implements Serializable{
         pages = new ArrayList<>();
     }
 
-    public List<PaginationLink> getPages() {
+    public List<AbstractPaginationLink> getPages() {
         return pages;
     }
 
@@ -24,11 +24,7 @@ public class PagesCollection implements Serializable{
         return count;
     }
 
-//    public void setCount(long count) {
-//        this.count = count;
-//    }
-
-    public void add(PaginationLink paginationLink){
+    public void add(AbstractPaginationLink paginationLink){
         pages.add(paginationLink);
     }
 
@@ -38,7 +34,7 @@ public class PagesCollection implements Serializable{
                 ", count=" + count);
         sb.append("PaginationLinks: ");
         sb.append("\n");
-        for (PaginationLink paginationLink:pages){
+        for (AbstractPaginationLink paginationLink:pages){
             sb.append(paginationLink);
             sb.append("\n");
         }

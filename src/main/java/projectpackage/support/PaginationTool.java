@@ -1,8 +1,8 @@
 package projectpackage.support;
 
+import projectpackage.pagination.AbstractPaginationLink;
 import projectpackage.pagination.FilePageLinkCreator;
 import projectpackage.pagination.PagesCollection;
-import projectpackage.pagination.PaginationLink;
 
 /**
  * Created by Lenovo on 24.02.2017.
@@ -14,18 +14,18 @@ public class PaginationTool {
 
         PagesCollection pagesCollection = new PagesCollection(filesCount);
         Object[] sortingParameters;
-        sortingParameters= new Object[]{sort, ascend};
+        sortingParameters= new Object[]{quantity, sort, ascend};
 
-        PaginationLink firstPaginationLink = filePageLinkCreator.createPaginationLink("first", quantity, 0, filesCount, offset, sortingParameters);
+        AbstractPaginationLink firstPaginationLink = filePageLinkCreator.createPaginationLink("first", quantity, 0, filesCount, offset, sortingParameters);
         pagesCollection.add(firstPaginationLink);
 
-        for (PaginationLink paginationLink : filePageLinkCreator.generatePageLinks(0, filesCount, offset, quantity, sortingParameters)) {
+        for (AbstractPaginationLink paginationLink : filePageLinkCreator.generatePageLinks(0, filesCount, offset, quantity, sortingParameters)) {
             pagesCollection.add(paginationLink);
         }
 
         Integer pagesCount = Math.toIntExact(filesCount / quantity);
         System.out.println("last page offset: pagescount="+pagesCount+" quantity="+quantity+ " result is="+pagesCount*quantity);
-        PaginationLink lastPaginationLink = filePageLinkCreator.createPaginationLink("last", quantity, pagesCount * quantity, filesCount, offset, sortingParameters);
+        AbstractPaginationLink lastPaginationLink = filePageLinkCreator.createPaginationLink("last", quantity, pagesCount * quantity, filesCount, offset, sortingParameters);
         pagesCollection.add(lastPaginationLink);
 
         return pagesCollection;

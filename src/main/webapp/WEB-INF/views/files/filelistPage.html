@@ -86,8 +86,8 @@
 
 <div class="col-sm-12">
     <ul id="navsection" class="pagination" th:each="pageitem : ${pagesCollection.getPages()}">
-        <li th:class="'pageitem' + (${pageitem.isDisabled()} & ${pageitem.getPageIndex()!='first'} || ${pageitem.getPageIndex()!='last'}) ? 'active' : (${pageitem.isDisabled()}) ? 'disabled'">
-            <a th:href="${pageitem.getPageLink()}">
+        <li th:class="(${pageitem.isDisabled() &pageitem.pageIndex;!='first'} & ${pageitem.getPageIndex()!='last'} ? 'active')">
+            <a th:href="@{${pageitem.getPageLink()}}">
                 <th th:text="${pageitem.getPageIndex()}"/>
             </a></li>
     </ul>
