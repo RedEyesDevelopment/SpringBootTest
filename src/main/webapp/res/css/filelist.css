@@ -4,5 +4,18 @@ visibility: hidden;}
 #searchForm {
 visibility: hidden;}
 
-.tableContent {
-align-items: center;}
+.fileContentSection {
+text-align: center;
+border: 3px solid
+padding: 10px;
+}
+
+.fileRowSection {
+margin: auto;
+width: 50%
+border: 3px solid
+padding: 10px;
+}
+
+#paginationContainer {
+text-align: center;}

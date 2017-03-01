@@ -84,11 +84,17 @@ public class UserController {
         }
 
         User user = userService.findByUsername(securityService.findLoggedInUsername());
+        System.out.println("searheable username is "+user.getUsername());
         UserSession userSession = userSessionService.findByUserId(user.getId());
+        System.out.println(userSession.toString());
         userSession.setUsername(user.getUsername());
         userSession.setFullname(user.getFullname());
         SessionTool.fillSessionWithUserParameters(request.getSession(), userSession);
-        response.setLocale(new Locale.Builder().setLanguage(userSession.getLocale().getLocale()).setRegion(userSession.getLocale().getLocale()).build());
+        Locale locale = new Locale.Builder().setLanguage(userSession.getLocale()).setRegion(userSession.getLocale()).build();
+        System.out.println("locale string is "+userSession.getLocale());
+        System.out.println("your locale is "+locale.getLanguage().toString());
+        response.setLocale(locale);
+
         return "redirect:/index";
     }
 

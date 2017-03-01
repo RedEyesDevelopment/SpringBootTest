@@ -25,8 +25,16 @@ public abstract class PageLinkCreator {
         Integer halfOfPages = pagesCount / 2;
         if ((currentPointer - (halfOfPages * objectsOnPage)) < objectsOnPage) {
             startingIterateValue = 0;
-        } else startingIterateValue = currentPointer - (halfOfPages * objectsOnPage);
-        endingIterateValue = startingIterateValue + (pagesCount * objectsOnPage);
+            endingIterateValue = startingIterateValue + (pagesCount * objectsOnPage);
+        } else if ((objectCollectionCount - currentPointer) < (halfOfPages * objectsOnPage)) {
+            Long lastPageOffset = (objectCollectionCount / objectsOnPage) * objectsOnPage;
+            Long startingresult = lastPageOffset - (objectsOnPage * pagesCount);
+            startingIterateValue = Math.toIntExact(startingresult+objectsOnPage);
+            endingIterateValue = Math.toIntExact(lastPageOffset+objectsOnPage);
+        } else {
+            startingIterateValue = currentPointer - (halfOfPages * objectsOnPage);
+            endingIterateValue = startingIterateValue + (pagesCount * objectsOnPage);
+        }
 
         for (int i = startingIterateValue; i < endingIterateValue; i += objectsOnPage) {
             AbstractPaginationLink recentAbstractPaginationLink = createPaginationLink(String.valueOf((i / objectsOnPage) + 1), objectsOnPage, i, objectCollectionCount, currentPointer, sortingParameters);
@@ -37,10 +45,14 @@ public abstract class PageLinkCreator {
 
     //Метод вычисления параметра disabled,active для ссылки
     static void calculatePaginationLinkDisability(AbstractPaginationLink paginationLink, Integer objectsPerPage, Long objectCollectionCount, Integer currentPointer, Integer currentPageLinkOffset) {
-        if (currentPointer.equals(currentPageLinkOffset)) {
+        if (currentPointer.equals(currentPageLinkOffset) && !(paginationLink.getPageIndex().equals("first") || paginationLink.getPageIndex().equals("last"))) {
             paginationLink.setActive(true);
         }
-        if (((objectCollectionCount - currentPointer) < objectsPerPage) || (currentPointer.equals(0) && currentPageLinkOffset.equals(0))) {
+
+        Long lastPageOffset = (objectCollectionCount / objectsPerPage) * objectsPerPage;
+        if (lastPageOffset.equals(objectCollectionCount)) lastPageOffset = objectCollectionCount - objectsPerPage;
+
+        if ((currentPointer >= lastPageOffset && paginationLink.getPageIndex().equals("last")) || (currentPointer.equals(0) && currentPageLinkOffset.equals(0) && paginationLink.getPageIndex().equals("first"))) {
             paginationLink.setDisabled(true);
         }
     }

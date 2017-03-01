@@ -31,7 +31,8 @@ public class PagesCollection implements Serializable{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("PagesCollection{" +
-                ", count=" + count);
+                "count=" + count);
+        sb.append("\n");
         sb.append("PaginationLinks: ");
         sb.append("\n");
         for (AbstractPaginationLink paginationLink:pages){

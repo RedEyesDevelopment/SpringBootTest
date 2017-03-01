@@ -1,8 +1,8 @@
 package projectpackage.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import projectpackage.i18n.WebLocale;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.repositories.AuthRepositories.UserSessionRepository;
@@ -12,6 +12,9 @@ import projectpackage.repositories.AuthRepositories.UserSessionRepository;
  */
 @Service
 public class UserSessionServiceImpl implements UserSessionService {
+
+    @Value("${server.defaultLocale}")
+    private String locale;
 
     @Autowired
     UserSessionRepository userSessionRepository;
@@ -27,7 +30,7 @@ public class UserSessionServiceImpl implements UserSessionService {
         session.setUserId(user.getId());
         session.setUsername(user.getUsername());
         session.setFullname(user.getFullname());
-        session.setLocale(WebLocale.ru);
+        session.setLocale(locale);
         session.setFilesQuantity(10);
         session.setFilesSortParameter("uploadDate");
         session.setFilesAscend(true);

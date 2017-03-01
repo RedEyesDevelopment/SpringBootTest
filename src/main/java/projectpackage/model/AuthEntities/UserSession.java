@@ -1,7 +1,5 @@
 package projectpackage.model.AuthEntities;
 
-import projectpackage.i18n.WebLocale;
-
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -37,8 +35,7 @@ public class UserSession {
     private boolean filesAscend;
 
     @Column(name = "USER_LOCALE")
-    @Enumerated(EnumType.STRING)
-    private WebLocale locale;
+    private String locale;
 
     public long getId() {
         return id;
@@ -96,11 +93,11 @@ public class UserSession {
         this.filesAscend = filesAscend;
     }
 
-    public WebLocale getLocale() {
+    public String getLocale() {
         return locale;
     }
 
-    public void setLocale(WebLocale locale) {
+    public void setLocale(String locale) {
         this.locale = locale;
     }
 

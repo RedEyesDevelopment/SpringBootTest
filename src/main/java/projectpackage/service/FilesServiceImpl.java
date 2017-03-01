@@ -43,8 +43,8 @@ public class FilesServiceImpl implements FilesService {
         return filesRepository.findAll(new PageRequest(startingCount, endingCount, SortingTool.getSort(sortingParameter, ascend)));
     }
 
-    public List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int offset, String sortingParameter, boolean ascend){
-        return customFilesRepository.findAllPublicityTrueOrUserIsAuthor(user, startingCount, offset, sortingParameter, ascend);
+    public List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int quantity, String sortingParameter, boolean ascend){
+        return customFilesRepository.findAllPublicityTrueOrUserIsAuthor(user, startingCount, quantity, sortingParameter, ascend);
     }
 
     @Override

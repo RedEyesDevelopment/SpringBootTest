@@ -14,5 +14,5 @@ import tests.AbstractTest;
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class })
-public class AbstractDatabaseTest extends AbstractTest {
+public abstract class AbstractDatabaseTest extends AbstractTest {
 }

@@ -13,10 +13,8 @@ import projectpackage.repositories.InternationalizationRepositories.InterMessage
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
-import projectpackage.support.PaginationTool;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Gvozd on 06.01.2017.
@@ -41,7 +39,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getUser(){
+    public void getUser() {
         System.out.println(userService.toString());
         System.out.println("****************************************************************");
         System.out.println(userService.findOne(2L).toString());
@@ -50,7 +48,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getUserByLogin(){
+    public void getUserByLogin() {
         System.out.println(userService.toString());
         System.out.println("****************************************************************");
         User user = userService.findByUsername("qwerty");
@@ -60,10 +58,10 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getUserList(){
+    public void getUserList() {
         System.out.println(userService.toString());
         System.out.println("****************************************************************");
-        for (User user:userService.findAll()){
+        for (User user : userService.findAll()) {
             System.out.println(user.toString());
         }
         System.out.println("****************************************************************");
@@ -71,7 +69,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void createUser(){
+    public void createUser() {
         System.out.println(userService.toString());
         System.out.println("****************************************************************");
         User user = new User();
@@ -91,7 +89,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getMessage(){
+    public void getMessage() {
         System.out.println(interMessageRepository.toString());
         System.out.println("****************************************************************");
         System.out.println(interMessageRepository.findOne(1).toString());
@@ -101,7 +99,7 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getFile(){
+    public void getFile() {
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
         System.out.println(filesService.findOne(2).toString());
@@ -110,10 +108,10 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getFilePageableList(){
+    public void getFilePageableList() {
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
-        for (FileOnServer file:filesService.findAll(0,10, "alternative", true)){
+        for (FileOnServer file : filesService.findAll(0, 10, "alternative", true)) {
             System.out.println(file.toString());
         }
         System.out.println("****************************************************************");
@@ -121,23 +119,11 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getFilePageableListFromCustomRepository(){
-        System.out.println(filesService.toString());
-        System.out.println("****************************************************************");
-        User user = userService.findOne(2L);
-        for (FileOnServer file:filesService.findAllPublicityTrueOrUserIsAuthor(user,5,5,"alternative",false)){
-            System.out.println(file.toString());
-        }
-        System.out.println("****************************************************************");
-    }
-
-    @Test
-    @Rollback(true)
-    public void getFilePageableListFromCustomRepositoryDifficultQuery(){
+    public void getFilePageableListFromCustomRepository() {
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
         User user = userService.findOne(2L);
-        for (FileOnServer file:filesService.findAllPublicityTrueOrUserIsAuthor(user,5,5,"author.fullname",false)){
+        for (FileOnServer file : filesService.findAllPublicityTrueOrUserIsAuthor(user, 5, 5, "alternative", false)) {
             System.out.println(file.toString());
         }
         System.out.println("****************************************************************");
@@ -145,11 +131,38 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getFilePageableListWithSearchString(){
+    public void getFilePageableListFromCustomRepositoryRepeatableTest() {
+        System.out.println(filesService.toString());
+        System.out.println("PAGE OFFSET TEST");
+        System.out.println("****************************************************************");
+        User user = userService.findOne(2L);
+        TreeMap<Integer, List<FileOnServer>> resultArray = new TreeMap<>();
+        for (int i = 0; i < 25; i += 5) {
+            resultArray.put(i, filesService.findAllPublicityTrueOrUserIsAuthor(user, i, 5, "id", true));
+        }
+
+        for (Map.Entry entry : resultArray.entrySet()) {
+            System.out.println("****** ITERATION START **********");
+            System.out.println("starting point is " + entry.getKey());
+            List<FileOnServer> data = (List<FileOnServer>) entry.getValue();
+            for (FileOnServer file : data) {
+                System.out.println(file.toString());
+            }
+            System.out.println("****** ITERATION END **********");
+        }
+
+
+        System.out.println("END TEST");
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getFilePageableListFromCustomRepositoryDifficultQuery() {
         System.out.println(filesService.toString());
         System.out.println("****************************************************************");
         User user = userService.findOne(2L);
-        for (FileOnServer file:filesService.findByAlternativeLike("gift")){
+        for (FileOnServer file : filesService.findAllPublicityTrueOrUserIsAuthor(user, 5, 5, "author.fullname", false)) {
             System.out.println(file.toString());
         }
         System.out.println("****************************************************************");
@@ -157,7 +170,19 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
-    public void getUserSession(){
+    public void getFilePageableListWithSearchString() {
+        System.out.println(filesService.toString());
+        System.out.println("****************************************************************");
+        User user = userService.findOne(2L);
+        for (FileOnServer file : filesService.findByAlternativeLike("gift")) {
+            System.out.println(file.toString());
+        }
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
+    public void getUserSession() {
         System.out.println(userSessionService.toString());
         System.out.println("****************************************************************");
         UserSession userSession = userSessionService.findByUserId(1L);
@@ -165,12 +190,4 @@ public class RepositoryTests extends AbstractDatabaseTest {
         System.out.println("****************************************************************");
     }
 
-    @Test
-    @Rollback(true)
-    public void getFileListPagesForPaginationPurposes(){
-        System.out.println(filesService.toString());
-        System.out.println("****************************************************************");
-        System.out.println(PaginationTool.getFilesPageCollection(filesService.count(),5,0,"uploadDate",true));
-        System.out.println("****************************************************************");
-    }
 }

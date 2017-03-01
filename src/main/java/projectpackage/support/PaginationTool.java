@@ -24,7 +24,6 @@ public class PaginationTool {
         }
 
         Integer pagesCount = Math.toIntExact(filesCount / quantity);
-        System.out.println("last page offset: pagescount="+pagesCount+" quantity="+quantity+ " result is="+pagesCount*quantity);
         AbstractPaginationLink lastPaginationLink = filePageLinkCreator.createPaginationLink("last", quantity, pagesCount * quantity, filesCount, offset, sortingParameters);
         pagesCollection.add(lastPaginationLink);
 

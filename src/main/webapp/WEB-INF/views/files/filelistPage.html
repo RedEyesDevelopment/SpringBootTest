@@ -28,7 +28,7 @@
            id="sortByType" class="btn btn-primary">
             <th th:text="#{fileslistpage.sorttypebutton}"/>
             <span id="extensionCaret" class="buttoncarets caret"/></a>
-        <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='uploadDate',ascend=${session.filesAscend})}"
+        <a th:href="@{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='id',ascend=${session.filesAscend})}"
            id="sortByUploadedDate" class="btn btn-primary">
             <th th:text="#{fileslistpage.sortuploaddatebutton}"/>
             <span id="uploadDateCaret" class="buttoncarets glyphicon glyphicon-triangle-bottom"></span></a>
@@ -66,11 +66,11 @@
 
 
 <div class="col-sm-12">
-    <table th:each="fileitem : ${filesList}" class="table table-striped">
+    <table th:each="fileitem : ${filesList}" class="table table-striped fileRowSection">
         <tbody>
-        <tr class="tableContent">
+        <tr>
             <td>
-                <div id="fileContentSection">
+                <div class="fileContentSection">
                     <p th:text="#{fileslistpage.sortfilenamebutton}+': '+${fileitem.alternative}"/>
                     <p th:text="#{fileslistpage.sorttypebutton}+': '+${fileitem.extension}"/>
                     <p th:text="#{fileslistpage.sortuploaddatebutton}+': '+${#calendars.format(fileitem.uploadDate, 'dd MMM yyyy HH:mm')}"/>
@@ -84,11 +84,12 @@
     </table>
 </div>
 
-<div class="col-sm-12">
+<div id="paginationContainer">
     <ul id="navsection" class="pagination" th:each="pageitem : ${pagesCollection.getPages()}">
-        <li th:class="(${pageitem.isDisabled() &pageitem.pageIndex;!='first'} & ${pageitem.getPageIndex()!='last'} ? 'active')">
-            <a th:href="@{${pageitem.getPageLink()}}">
-                <th th:text="${pageitem.getPageIndex()}"/>
+        <li th:class="${pageitem.isDisabled()}? 'disabled' : (__${pageitem.isActive()}__? 'active')">
+            <a th:href="@{/fileapi/filelist(for=${pageitem.getQuantity()},show=${pageitem.getOffset()},sort=${pageitem.getSort()},ascend=${pageitem.isAscend()})}">
+                <th th:text="${digitMatch.match({pageitem.getPageIndex()})}? ${pageitem.getPageIndex()} : (${pageitem.getPageIndex() == 'first'}? #{fileslistpage.firstbutton} : #{fileslistpage.lastbutton})"/>
+                <!--${digitMatch.match({pageitem.getPageIndex()})}? ${pageitem.getPageIndex()} : (${pageitem.getPageIndex() == 'first'}? 'FIR' : 'LAS')-->
             </a></li>
     </ul>
 </div>

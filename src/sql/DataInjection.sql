@@ -7,9 +7,9 @@ insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('System_Programmer', 'sys
 insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('Admin', 'admin', '$2a$11$iXOUawTHBNAswdVWdHF9EuveOseXTB88egGfzBb.9Y.T.96ipQrte');
 insert into USERS (FULL_NAME, USER_NAME, PSWD) values ('QwertyUser', 'qwerty', '$2a$11$mYwze2v1YQgcj7kwvXLkOOWgwqwMwimWVaCloEzA0ibfLLEYcgxXm');
 
-insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('1', '10', 'uploadDate', 1, "ru");
-insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', 'uploadDate', 1, "ru");
-insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', 'uploadDate', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('1', '10', 'id', 1, "en");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', 'id', 1, "ru");
+insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', 'id', 1, "ru");
 
 
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('1', '2');
@@ -55,6 +55,7 @@ insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_volume.png', 'png', 'Volume', '1', 1, 1);
 
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'ru', 'Хуйня');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'en', 'Hooynya');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('login.emptyField', 'ru', 'Поле не должно быть пустым', 'Форма логина - проверка на пустое поле');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('login.outOfBounds', 'ru', 'Количество символов логина должно быть от 6 до 32', 'Форма логина - проверка на логин');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('login.passOutOfBounds', 'ru', 'Количество символов пароля должно быть от 8 до 32', 'Форма логина - проверка на пароль');
@@ -79,4 +80,6 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.searchlabel', 'ru', 'Введите название или часть названия файла', 'лейба поиска файлов');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.searchformbutton', 'ru', 'Искать', 'кнопка поиска файлов');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filessearchpage.returnbutton', 'ru', 'Вернуться назад', 'кнопка возвращения на страницу поиска файлов');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.firstbutton', 'ru', 'Первая', 'название первой страницы в списке страниц');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.lastbutton', 'ru', 'Последняя', 'название последней страницы в списке страниц');
 

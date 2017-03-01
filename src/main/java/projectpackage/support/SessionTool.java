@@ -1,7 +1,6 @@
 package projectpackage.support;
 
 import org.springframework.stereotype.Service;
-import projectpackage.i18n.WebLocale;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
@@ -58,9 +57,9 @@ public class SessionTool {
             userSession.setFilesAscend((Boolean) session.getAttribute("filesAscend"));
         } else userSession.setFilesAscend(true);
 
-        if (session.getAttribute("userLocale").getClass().isInstance(WebLocale.class)){
-            userSession.setLocale((WebLocale) session.getAttribute("userLocale"));
-        } else userSession.setLocale(WebLocale.ru);
+        if (session.getAttribute("userLocale").getClass().isInstance(String.class)){
+            userSession.setLocale((String) session.getAttribute("userLocale"));
+        } else userSession.setLocale("ru");
 
         return userSession;
     }

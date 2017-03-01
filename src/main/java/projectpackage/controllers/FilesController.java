@@ -16,6 +16,7 @@ import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
 import projectpackage.support.PaginationTool;
 import projectpackage.support.SessionTool;
+import projectpackage.support.StringTool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -115,19 +116,21 @@ public class FilesController {
 
     @RequestMapping(value="filelist", params = {"for", "show", "sort", "ascend"})
     public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") Boolean ascend, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        if (parameter==null || parameter.equals("")){
-            parameter="uploadDate";
-        }
 
         Long userId = (Long) request.getSession().getAttribute("UserId");
-
         User myself = userService.findOne(userId);
+
+        //sorting by upload date results in errors when files have equal uploadDate, so changing parameter to file id in db
+        if (parameter.equals("uploadDate")) parameter="id";
+
         List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, quantity, parameter, ascend);
 
         SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, parameter, ascend);
 
         PagesCollection filesPagesCollection = PaginationTool.getFilesPageCollection(filesService.count(), quantity, offset, parameter, ascend);
 
+
+        map.put("digitMatch", StringTool.getMatcher("\\d+"));
         map.put("pagesCollection", filesPagesCollection);
         map.put("filesList", filesList);
         map.put("offset", offset);

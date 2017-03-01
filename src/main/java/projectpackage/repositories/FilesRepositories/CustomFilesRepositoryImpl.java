@@ -19,7 +19,7 @@ public class CustomFilesRepositoryImpl implements CustomFilesRepository {
     EntityManagerFactory entityManagerFactory;
 
     @Override
-    public List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int offset, String sortingParameter, boolean ascend) {
+    public List<FileOnServer> findAllPublicityTrueOrUserIsAuthor(User user, int startingCount, int quantity, String sortingParameter, boolean ascend) {
         String order;
         if (ascend) {
             order="asc";
@@ -33,7 +33,7 @@ public class CustomFilesRepositoryImpl implements CustomFilesRepository {
         TypedQuery query = entityManagerFactory.createEntityManager().createQuery(hql.toString(), FileOnServer.class);
         query.setParameter("author", user);
         query.setFirstResult(startingCount);
-        query.setMaxResults(offset);
+        query.setMaxResults(quantity);
         return query.getResultList();
     }
 }
