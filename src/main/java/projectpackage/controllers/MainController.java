@@ -22,8 +22,6 @@ public class MainController {
         System.out.println("tms="+tms);
         mav.addObject("tms", tms);
         mav.setViewName("index");
-        System.out.println("request locale is "+request.getLocale().toString());
-        System.out.println("response locale is "+response.getLocale().toString());
         return mav;
     }
 

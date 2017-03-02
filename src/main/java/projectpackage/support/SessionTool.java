@@ -29,7 +29,13 @@ public class SessionTool {
     // Получить объект UserSession из HttpSession
     public static UserSession getUserSessionParametersFromSession(HttpSession session, UserService userService){
         UserSession userSession = new UserSession();
-        User user = userService.findOne((Long) session.getAttribute("UserId"));
+
+        Long userId = (Long) session.getAttribute("UserId");
+        if (null==userId){
+            return null;
+        }
+
+        User user = userService.findOne(userId);
         userSession.setUsername(user.getUsername());
         userSession.setFullname(user.getFullname());
 
