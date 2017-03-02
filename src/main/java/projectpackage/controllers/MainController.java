@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 
 /**
@@ -14,12 +16,14 @@ import java.sql.Timestamp;
 public class MainController {
 
     @RequestMapping(value = {"/", "index"}, method = RequestMethod.GET)
-    ModelAndView home() {
+    ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
         Timestamp tms = new Timestamp(System.currentTimeMillis());
         System.out.println("tms="+tms);
         mav.addObject("tms", tms);
         mav.setViewName("index");
+        System.out.println("request locale is "+request.getLocale().toString());
+        System.out.println("response locale is "+response.getLocale().toString());
         return mav;
     }
 

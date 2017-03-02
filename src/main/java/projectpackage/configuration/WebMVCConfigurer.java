@@ -9,11 +9,15 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import projectpackage.components.CustomDatabaseMessageSource;
+
+import java.util.Locale;
 
 /**
  * Created by Gvozd on 30.12.2016.
@@ -26,7 +30,10 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
     @Value("${fileupload.maxSizePerFileInMegabytes}")
     private String maxFileUploadSize;
 
-//    Ищет View(Template) для отображения страниц
+    @Value("${server.defaultLocale}")
+    private String locale;
+
+    //    Ищет View(Template) для отображения страниц
     @Bean
     TemplateResolver templateResolver() {
         ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
@@ -37,7 +44,7 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         return templateResolver;
     }
 
-//    Общий класс для отображения страниц и интернационализации сообщений
+    //    Общий класс для отображения страниц и интернационализации сообщений
     @Bean
     SpringTemplateEngine springTemplateEngine() {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
@@ -45,7 +52,7 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         return springTemplateEngine;
     }
 
-//    Общий резольвер
+    //    Общий резольвер
     @Bean
     public ThymeleafViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -54,9 +61,9 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-//    Самодельный Message Source, достающий сообщения через JDBCTemplate из БД
+    //    Самодельный Message Source, достающий сообщения через JDBCTemplate из БД
     @Bean
-    MessageSource messageSource(){
+    MessageSource messageSource() {
         CustomDatabaseMessageSource vdms = new CustomDatabaseMessageSource();
         vdms.setDefaultLocale("ru");
         return vdms;
@@ -69,11 +76,25 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    CommonsMultipartResolver multipartResolver(){
+    CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-        int maxFileUploadSizeInt = Integer.parseInt(maxFileUploadSize)*1024*1024;
+        int maxFileUploadSizeInt = Integer.parseInt(maxFileUploadSize) * 1024 * 1024;
         multipartResolver.setMaxUploadSizePerFile(maxFileUploadSizeInt);
         return multipartResolver;
+    }
+
+    @Bean
+    SessionLocaleResolver localeResolver() {
+        SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
+        sessionLocaleResolver.setDefaultLocale(new Locale.Builder().setLanguage(locale).setRegion(locale).build());
+        return sessionLocaleResolver;
+    }
+
+    @Bean
+    LocaleChangeInterceptor localeChangeInterceptor(){
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("locale");
+        return localeChangeInterceptor;
     }
 
 }

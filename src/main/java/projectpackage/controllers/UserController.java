@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.LocaleResolver;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.service.SecurityServices.SecurityService;
@@ -36,6 +37,9 @@ public class UserController {
 
     @Autowired
     UserSessionService userSessionService;
+
+    @Autowired
+    LocaleResolver localeResolver;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model){
@@ -84,16 +88,12 @@ public class UserController {
         }
 
         User user = userService.findByUsername(securityService.findLoggedInUsername());
-        System.out.println("searheable username is "+user.getUsername());
         UserSession userSession = userSessionService.findByUserId(user.getId());
-        System.out.println(userSession.toString());
         userSession.setUsername(user.getUsername());
         userSession.setFullname(user.getFullname());
         SessionTool.fillSessionWithUserParameters(request.getSession(), userSession);
         Locale locale = new Locale.Builder().setLanguage(userSession.getLocale()).setRegion(userSession.getLocale()).build();
-        System.out.println("locale string is "+userSession.getLocale());
-        System.out.println("your locale is "+locale.getLanguage().toString());
-        response.setLocale(locale);
+        localeResolver.setLocale(request,response,locale);
 
         return "redirect:/index";
     }
