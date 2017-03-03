@@ -1,6 +1,5 @@
 package projectpackage.service.SecurityServices;
 
-import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +17,6 @@ import java.util.Set;
 /**
  * Created by Gvozd on 07.01.2017.
  */
-@Log4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

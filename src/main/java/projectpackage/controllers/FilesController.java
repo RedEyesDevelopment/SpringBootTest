@@ -120,15 +120,15 @@ public class FilesController {
         Long userId = (Long) request.getSession().getAttribute("UserId");
         User myself = userService.findOne(userId);
 
-        //sorting by upload date results in errors when files have equal uploadDate, so changing parameter to file id in db
-        if (parameter.equals("uploadDate")) parameter="id";
+        if (SessionTool.sortingParametersHasChanged(request.getSession(), quantity, offset, parameter, ascend)) {
+            ascend = !ascend;
+        }
 
         List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, quantity, parameter, ascend);
 
-        SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, parameter, ascend);
+        SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, offset, parameter, ascend);
 
         PagesCollection filesPagesCollection = PaginationTool.getFilesPageCollection(filesService.count(), quantity, offset, parameter, ascend);
-
 
         map.put("digitMatch", StringTool.getMatcher("\\d+"));
         map.put("pagesCollection", filesPagesCollection);

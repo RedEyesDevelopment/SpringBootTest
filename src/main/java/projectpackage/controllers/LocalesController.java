@@ -37,14 +37,10 @@ public class LocalesController {
 
     @RequestMapping(value = "/change={localeName}")
     public String selectMyIdea(@PathVariable("localeName") String localeName, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-
-        System.out.println("stringparameter: "+localeName);
-
         String previouspage = request.getHeader("Referer");
         if (null==previouspage){
             previouspage="index";
         }
-
         if (null==localeName || (!localeName.equals("ru") || (!localeName.equals("en")))){
             localeName= defaultLocale;
         }
@@ -57,8 +53,6 @@ public class LocalesController {
             userSession.setLocale(localeName);
             userSessionService.save(userSession);
         }
-
-        System.out.println("previouspage is "+previouspage);
         return "redirect:/"+previouspage;
     }
 

@@ -59,7 +59,7 @@ public class UserController {
         securityService.autologin(userForm.getUsername(), userForm.getConfirmPassword());
         User newUser = userService.findByUsername(userForm.getUsername());
         UserSession newUserSession= userSessionService.createUserSession(newUser);
-        SessionTool.fillSessionWithUserParameters(request.getSession(), newUserSession);
+        SessionTool.fillSessionWithUserParameters(request.getSession(), newUserSession, true);
         return "redirect:/index";
     }
 
@@ -91,7 +91,7 @@ public class UserController {
         UserSession userSession = userSessionService.findByUserId(user.getId());
         userSession.setUsername(user.getUsername());
         userSession.setFullname(user.getFullname());
-        SessionTool.fillSessionWithUserParameters(request.getSession(), userSession);
+        SessionTool.fillSessionWithUserParameters(request.getSession(), userSession, true);
         Locale locale = new Locale.Builder().setLanguage(userSession.getLocale()).setRegion(userSession.getLocale()).build();
         localeResolver.setLocale(request,response,locale);
 

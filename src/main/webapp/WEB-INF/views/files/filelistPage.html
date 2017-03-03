@@ -89,7 +89,6 @@
         <li th:class="${pageitem.isDisabled()}? 'disabled' : (__${pageitem.isActive()}__? 'active')">
             <a th:href="@{/fileapi/filelist(for=${pageitem.getQuantity()},show=${pageitem.getOffset()},sort=${pageitem.getSort()},ascend=${pageitem.isAscend()})}">
                 <th th:text="${digitMatch.match({pageitem.getPageIndex()})}? ${pageitem.getPageIndex()} : (${pageitem.getPageIndex() == 'first'}? #{fileslistpage.firstbutton} : #{fileslistpage.lastbutton})"/>
-                <!--${digitMatch.match({pageitem.getPageIndex()})}? ${pageitem.getPageIndex()} : (${pageitem.getPageIndex() == 'first'}? 'FIR' : 'LAS')-->
             </a></li>
     </ul>
 </div>
