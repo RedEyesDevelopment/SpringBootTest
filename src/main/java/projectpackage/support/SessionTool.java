@@ -75,11 +75,10 @@ public class SessionTool {
     // Обновить параметры в сессии и обновить в БД объект UserSession
     public static void updateSessionWithFileParametersAndPassItToDatabase(HttpSession httpSession, UserSessionService userSessionService, Integer newQuantity, Integer newOffset, String newSortingParameter, Boolean newAscendOrder) {
         Boolean sessionNeedsUpdate = false;
-        UserSession userSession = null;
+        UserSession userSession = userSessionService.findByUserId((Long) httpSession.getAttribute("UserId"));
 
         if (!httpSession.getAttribute("filesQuantity").equals(newQuantity)) {
             httpSession.setAttribute("filesQuantity", newQuantity);
-            userSession = userSessionService.findByUserId((Long) httpSession.getAttribute("UserId"));
             userSession.setFilesQuantity(newQuantity);
             sessionNeedsUpdate = true;
         }
@@ -111,17 +110,30 @@ public class SessionTool {
             userSessionService.save(userSession);
         }
     }
-
-    public static boolean sortingParametersHasChanged(HttpSession session, Integer newQuantity, Integer newOffset, String newSort, boolean newAscend) {
-        Integer oldQuantity = (Integer) session.getAttribute("filesQuantity");
-        Integer oldOffset = (Integer) session.getAttribute("filesOffset");
-        String oldSort = (String) session.getAttribute("filesSortParameter");
-        Boolean oldAscend = (Boolean) session.getAttribute("filesAscend");
-
-        if (!oldOffset.equals(newOffset)) return true;
-        if (!oldQuantity.equals(newQuantity)) return true;
-        if (!oldSort.equals(newSort)) return true;
-        if (!oldAscend.equals(newAscend)) return true;
-        return false;
-    }
+//
+//    public static boolean filesSortingParametersHasChanged(HttpSession session, Integer newQuantity, Integer newOffset, String newSort) {
+//        Integer oldQuantity = (Integer) session.getAttribute("filesQuantity");
+//        Integer oldOffset = (Integer) session.getAttribute("filesOffset");
+//        String oldSort = (String) session.getAttribute("filesSortParameter");
+//
+//        if (!oldOffset.equals(newOffset)) return true;
+//        if (!oldQuantity.equals(newQuantity)) return true;
+//        if (!oldSort.equals(newSort)) return true;
+//        return false;
+//    }
+//
+//    public static void markUserAsJustLoggedIn(HttpSession session){
+//        session.setAttribute("JUSTLOGGEDIN", true);
+//        System.out.println("SETTING JUSTLOGGEDIN");
+//    }
+//
+//    public static boolean isUserJustLoggedIn(HttpSession session){
+//        Boolean justLoggedIn = false;
+//        if (null!=(Boolean) session.getAttribute("JUSTLOGGEDIN")){
+//            justLoggedIn = (boolean) session.getAttribute("JUSTLOGGEDIN");
+//        };
+//        if (justLoggedIn) System.out.println("JUSTLOGGEDIN is true");
+//        if (justLoggedIn) session.removeAttribute("JUSTLOGGEDIN");
+//        return justLoggedIn;
+//    }
 }

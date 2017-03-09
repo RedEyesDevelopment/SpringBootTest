@@ -182,6 +182,25 @@ public class RepositoryTests extends AbstractDatabaseTest {
 
     @Test
     @Rollback(true)
+    public void getFilePageableListWithChangingAscend() {
+        System.out.println(filesService.toString());
+        System.out.println("****************************************************************");
+        User user = userService.findOne(2L);
+        List<FileOnServer> trueList= filesService.findAllPublicityTrueOrUserIsAuthor(user, 0, 10, "alternative", true);
+        List<FileOnServer> falseList = filesService.findAllPublicityTrueOrUserIsAuthor(user, 0, 10, "alternative", false);
+        System.out.println("*********************** ASCEND true********************************");
+        for (FileOnServer file : trueList) {
+            System.out.println(file.toString());
+        }
+        System.out.println("*********************** ASCEND FALSE********************************");
+        for (FileOnServer file : falseList) {
+            System.out.println(file.toString());
+        }
+        System.out.println("****************************************************************");
+    }
+
+    @Test
+    @Rollback(true)
     public void getUserSession() {
         System.out.println(userSessionService.toString());
         System.out.println("****************************************************************");

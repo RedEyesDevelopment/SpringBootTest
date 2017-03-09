@@ -94,7 +94,6 @@ public class UserController {
         SessionTool.fillSessionWithUserParameters(request.getSession(), userSession, true);
         Locale locale = new Locale.Builder().setLanguage(userSession.getLocale()).setRegion(userSession.getLocale()).build();
         localeResolver.setLocale(request,response,locale);
-
         return "redirect:/index";
     }
 

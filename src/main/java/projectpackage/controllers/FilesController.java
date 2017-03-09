@@ -115,14 +115,20 @@ public class FilesController {
     }
 
     @RequestMapping(value="filelist", params = {"for", "show", "sort", "ascend"})
-    public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") Boolean ascend, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+    public String fileListPage(@RequestParam(value = "for") Integer quantity, @RequestParam(value = "show") Integer offset, @RequestParam(value = "sort") String parameter, @RequestParam(value = "ascend") String ascendString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
 
         Long userId = (Long) request.getSession().getAttribute("UserId");
         User myself = userService.findOne(userId);
+        Boolean ascend = Boolean.parseBoolean(ascendString);
 
-        if (SessionTool.sortingParametersHasChanged(request.getSession(), quantity, offset, parameter, ascend)) {
-            ascend = !ascend;
-        }
+        System.out.println("***********************************************************");
+        System.out.println("AscendString is "+ascendString);
+//        Boolean parametersHasChanged = SessionTool.filesSortingParametersHasChanged(request.getSession(), quantity, offset, parameter);
+//        if (!parametersHasChanged && !SessionTool.isUserJustLoggedIn(request.getSession())) {
+//            System.out.println("ParametersHasChanged is "+parametersHasChanged+" so reverting ascend");
+//            ascend = !ascend;
+//        }
+//        System.out.println("Ascend for filelist is "+ ascend);
 
         List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, quantity, parameter, ascend);
 
@@ -134,6 +140,7 @@ public class FilesController {
         map.put("pagesCollection", filesPagesCollection);
         map.put("filesList", filesList);
         map.put("offset", offset);
+        map.put("sortingParameter", parameter);
         return "files/filelistPage";
     }
 
