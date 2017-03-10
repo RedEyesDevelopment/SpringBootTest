@@ -10,30 +10,33 @@
     <script src="/res/js/filelistShowhidden.js"></script>
 </head>
 <body>
-<div id="filemenu">
+<nav id="filemenu" class="navbar navbar-fixed-top">
     <div id="buttonMenu" class="btn-group btn-group-justified">
         <a id="searchFilesButton" data-toggle="collapse" data-target="#searchForm" class="btn btn-primary"
            onclick="doUnhide()">
             <th th:text="#{fileslistpage.searchbutton}"/>
+            <span class="glyphicon glyphicon-search"/>
         </a>
-        <a th:href="${sortingParameter.equals('alternative')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${session.filesAscend})}"
+        <a th:href="${sortingParameter.equals('alternative')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='alternative',ascend='true')}"
            id="sortByAlternative" class="btn btn-primary">
             <th th:text="#{fileslistpage.sortfilenamebutton}"/>
-            <!--!!!-->
-            <span id="alternativeCaret" th:class="glyphicon glyphicon-sort-by-attributes"/></a>
-
-        <a th:href="${sortingParameter.equals('author.fullname')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend=${session.filesAscend})}"
+            <span id="alternativeCaret" th:if="${sortingParameter.equals('alternative')}"
+                  th:class="${ascendParameter}? 'glyphicon glyphicon-sort-by-alphabet' : 'glyphicon glyphicon-sort-by-alphabet-alt'"/></a>
+        <a th:href="${sortingParameter.equals('author.fullname')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='author.fullname',ascend='true')}"
            id="sortByAuthor" class="btn btn-primary">
             <th th:text="#{fileslistpage.sortauthorbutton}"/>
-            <span id="authorCaret" class="buttoncarets caret"/></a>
-        <a th:href="${sortingParameter.equals('extension')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${session.filesAscend})}"
+            <span id="authorCaret" th:if="${sortingParameter.equals('author.fullname')}"
+                  th:class="${ascendParameter}? 'glyphicon glyphicon-sort-by-alphabet' : 'glyphicon glyphicon-sort-by-alphabet-alt'"/></a>
+        <a th:href="${sortingParameter.equals('extension')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='extension',ascend='true')}"
            id="sortByType" class="btn btn-primary">
             <th th:text="#{fileslistpage.sorttypebutton}"/>
-            <span id="extensionCaret" class="buttoncarets caret"/></a>
-        <a th:href="${sortingParameter.equals('id')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='id',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='id',ascend=${session.filesAscend})}"
+            <span id="extensionCaret" th:if="${sortingParameter.equals('extension')}"
+                  th:class="${ascendParameter}? 'glyphicon glyphicon-sort-by-alphabet' : 'glyphicon glyphicon-sort-by-alphabet-alt'"/></a>
+        <a th:href="${sortingParameter.equals('id')}? @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='id',ascend=${!session.filesAscend})} : @{/fileapi/filelist(for=${session.filesQuantity},show=0,sort='id',ascend='true')}"
            id="sortByUploadedDate" class="btn btn-primary">
             <th th:text="#{fileslistpage.sortuploaddatebutton}"/>
-            <span id="uploadDateCaret" class="buttoncarets glyphicon glyphicon-triangle-bottom"></span></a>
+            <span id="uploaddateCaret" th:if="${sortingParameter.equals('id')}"
+                  th:class="${ascendParameter}? 'glyphicon glyphicon-sort-by-order' : 'glyphicon glyphicon-sort-by-order-alt'"/></a>
 
         <div class="btn-group dropdown">
             <a class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -64,23 +67,20 @@
         </div>
         </form>
     </span>
-</div>
+</nav>
 
 
 <div class="col-sm-12">
-    <table th:each="fileitem : ${filesList}" class="table table-striped fileRowSection">
+    <table th:each="fileitem : ${filesList}" class="table table-striped table-hover fileRowSection">
         <tbody>
-        <tr>
-            <td>
-                <div class="fileContentSection">
+        <tr class="active">
+            <td><div class="fileContentSection">
                     <p th:text="#{fileslistpage.sortfilenamebutton}+': '+${fileitem.alternative}"/>
                     <p th:text="#{fileslistpage.sorttypebutton}+': '+${fileitem.extension}"/>
                     <p th:text="#{fileslistpage.sortuploaddatebutton}+': '+${#calendars.format(fileitem.uploadDate, 'dd MMM yyyy HH:mm')}"/>
                     <p th:text="#{fileslistpage.sortauthorbutton}+': '+${fileitem.author.fullname}"/>
                     <img th:src="${'/dynamic/'+fileitem.filename}" th:alt="${fileitem.alternative}"
-                         height="100"/>
-                </div>
-            </td>
+                         height="100"/></div></td>
         </tr>
         </tbody>
     </table>

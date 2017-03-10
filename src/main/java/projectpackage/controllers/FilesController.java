@@ -121,15 +121,6 @@ public class FilesController {
         User myself = userService.findOne(userId);
         Boolean ascend = Boolean.parseBoolean(ascendString);
 
-        System.out.println("***********************************************************");
-        System.out.println("AscendString is "+ascendString);
-//        Boolean parametersHasChanged = SessionTool.filesSortingParametersHasChanged(request.getSession(), quantity, offset, parameter);
-//        if (!parametersHasChanged && !SessionTool.isUserJustLoggedIn(request.getSession())) {
-//            System.out.println("ParametersHasChanged is "+parametersHasChanged+" so reverting ascend");
-//            ascend = !ascend;
-//        }
-//        System.out.println("Ascend for filelist is "+ ascend);
-
         List<FileOnServer> filesList = filesService.findAllPublicityTrueOrUserIsAuthor(myself, offset, quantity, parameter, ascend);
 
         SessionTool.updateSessionWithFileParametersAndPassItToDatabase(request.getSession(), userSessionService, quantity, offset, parameter, ascend);
@@ -141,6 +132,7 @@ public class FilesController {
         map.put("filesList", filesList);
         map.put("offset", offset);
         map.put("sortingParameter", parameter);
+        map.put("ascendParameter", ascend);
         return "files/filelistPage";
     }
 

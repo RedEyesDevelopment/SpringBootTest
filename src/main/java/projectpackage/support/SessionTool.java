@@ -110,30 +110,4 @@ public class SessionTool {
             userSessionService.save(userSession);
         }
     }
-//
-//    public static boolean filesSortingParametersHasChanged(HttpSession session, Integer newQuantity, Integer newOffset, String newSort) {
-//        Integer oldQuantity = (Integer) session.getAttribute("filesQuantity");
-//        Integer oldOffset = (Integer) session.getAttribute("filesOffset");
-//        String oldSort = (String) session.getAttribute("filesSortParameter");
-//
-//        if (!oldOffset.equals(newOffset)) return true;
-//        if (!oldQuantity.equals(newQuantity)) return true;
-//        if (!oldSort.equals(newSort)) return true;
-//        return false;
-//    }
-//
-//    public static void markUserAsJustLoggedIn(HttpSession session){
-//        session.setAttribute("JUSTLOGGEDIN", true);
-//        System.out.println("SETTING JUSTLOGGEDIN");
-//    }
-//
-//    public static boolean isUserJustLoggedIn(HttpSession session){
-//        Boolean justLoggedIn = false;
-//        if (null!=(Boolean) session.getAttribute("JUSTLOGGEDIN")){
-//            justLoggedIn = (boolean) session.getAttribute("JUSTLOGGEDIN");
-//        };
-//        if (justLoggedIn) System.out.println("JUSTLOGGEDIN is true");
-//        if (justLoggedIn) session.removeAttribute("JUSTLOGGEDIN");
-//        return justLoggedIn;
-//    }
 }
