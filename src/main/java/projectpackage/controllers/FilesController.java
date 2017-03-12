@@ -3,6 +3,7 @@ package projectpackage.controllers;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,17 +46,16 @@ public class FilesController {
     UserSessionService userSessionService;
 
     @RequestMapping("upload")
-    public String fileUploadPage() {
+    public String fileUploadPage(Model model) {
+        Boolean publicity = true;
+        model.addAttribute("publicity", publicity);
         return "files/fileupload";
     }
 
-    @RequestMapping(value="doUpload", method = RequestMethod.POST)
-    public String fileUploading(@RequestParam("file") MultipartFile file, String publicity, String alternative, HttpServletRequest request, HttpServletResponse response) {
-        Boolean publicitys = Boolean.parseBoolean(publicity);
+    @RequestMapping(value="uploadfile", method = RequestMethod.POST)
+    public String fileUploading(@RequestParam("file") MultipartFile file, @RequestParam(value="publicity", defaultValue = "false") Boolean publicity, @RequestParam("alternative") String alternative, HttpServletRequest request, HttpServletResponse response) {
         String name = null;
-        if (publicitys == null || publicitys.equals("")) {
-            publicitys = false;
-        }
+
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -63,7 +63,7 @@ public class FilesController {
                 name = file.getOriginalFilename();
 
                 StringBuilder rootPath = new StringBuilder(request.getServletContext().getRealPath("/").toString());
-                rootPath.append("/dynamic/");
+                rootPath.append("dynamic");
                 System.out.println(rootPath.toString());
                 File dir = new File(rootPath.toString() + File.separator);
 
@@ -71,12 +71,12 @@ public class FilesController {
                     dir.mkdirs();
                 }
 
-                String extension = name.split(".")[1];
-                if (null==extension || extension.equals("")){
-                    extension="file";
-                }
-
-                System.out.println("in file controller");
+                String extension;
+                if (name.contains(".")) {
+                    String[] nameParts = name.split("\\.");
+                    int result = nameParts.length;
+                    extension = nameParts[result-1];
+                } else extension="file";
 
                 File uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
 
@@ -88,7 +88,7 @@ public class FilesController {
                 log.info("uploaded: " + uploadedFile.getAbsolutePath());
 
                 String fileName;
-                if (alternative!=null) {
+                if (alternative!=null && !alternative.equals("")) {
                     fileName = alternative;
                 } else fileName= uploadedFile.getName();
 
@@ -96,14 +96,23 @@ public class FilesController {
                 System.out.println(userId.toString());
 
                 FileOnServer newFile = new FileOnServer();
-                newFile.setFilename(fileName);
+                newFile.setFilename(uploadedFile.getName());
+                newFile.setAlternative(fileName);
                 newFile.setAuthor(userService.findOne(userId));
                 newFile.setUploadDate(new Timestamp(System.currentTimeMillis()));
-                newFile.setPublicity(publicitys);
+                newFile.setPublicity(publicity);
                 newFile.setNotDeletable(false);
                 newFile.setExtension(extension);
                 filesService.save(newFile);
-                return "redirect:/fileapi/filelist";
+
+                UserSession userSession = SessionTool.getUserSessionParametersFromSession(request.getSession(), userService);
+                StringBuilder stringBuilder = new StringBuilder("redirect:/fileapi/filelist?for=");
+                stringBuilder.append(userSession.getFilesQuantity());
+                stringBuilder.append("&show=0&sort=");
+                stringBuilder.append(userSession.getFilesSortParameter());
+                stringBuilder.append("&ascend=");
+                stringBuilder.append(userSession.isFilesAscend());
+                return stringBuilder.toString();
 
             } catch (Exception e) {
                 e.printStackTrace();

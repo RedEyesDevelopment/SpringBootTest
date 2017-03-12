@@ -3,6 +3,7 @@ package projectpackage;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * Created by Gvozd on 30.12.2016.
  */
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {MultipartAutoConfiguration.class})
 public class Application {
     public static void main(String[] args) throws Exception {
         SpringApplication.run(new Class<?>[] {Application.class}, args);

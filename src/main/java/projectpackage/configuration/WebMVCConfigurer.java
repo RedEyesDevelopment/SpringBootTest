@@ -2,10 +2,11 @@ package projectpackage.configuration;
 
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -17,6 +18,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 import projectpackage.components.CustomDatabaseMessageSource;
 
+import javax.servlet.MultipartConfigElement;
 import java.util.Locale;
 
 /**
@@ -76,10 +78,17 @@ public class WebMVCConfigurer extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    MultipartConfigElement multipartConfigElement(){
+        MultipartConfigFactory factory = new MultipartConfigFactory();
         int maxFileUploadSizeInt = Integer.parseInt(maxFileUploadSize) * 1024 * 1024;
-        multipartResolver.setMaxUploadSizePerFile(maxFileUploadSizeInt);
+        factory.setMaxFileSize(maxFileUploadSizeInt);
+        factory.setMaxRequestSize(maxFileUploadSizeInt);
+        return  factory.createMultipartConfig();
+    }
+
+    @Bean
+    StandardServletMultipartResolver multipartResolver() {
+        StandardServletMultipartResolver multipartResolver = new StandardServletMultipartResolver();
         return multipartResolver;
     }
 

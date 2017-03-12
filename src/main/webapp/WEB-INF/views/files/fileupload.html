@@ -9,7 +9,7 @@
 <body>
 
 <div class="fileform">
-    <form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
+    <form method="POST" action="/fileapi/uploadfile" th:action="@{/fileapi/uploadfile}" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-12"><div id="preUploadText" data-th-text="#{filespage.uploadfilemessage}"/></div>
             <div class="col-sm-12">
@@ -19,12 +19,11 @@
             </div>
             <div class="col-sm-12"><label for="file" id="uploadlabel" class="btn btn-lg btn-primary btn-block"><div
                     data-th-text="#{filespage.choosefilebutton}"/></label><input style="opacity: 0; z-index: -1;"
-                                                                                     type="file" name="file" id="file"
-                                                                                     onchange="getName(this.value);"/>
+                                                                                     type="file" class="file" name="file" id="file" onchange="getName(this.value);"/>
             </div>
-            <div class="col-sm-12 dounhide"><input class="form-control" id="alternative" type="text" th:placeholder="#{filespage.filenamelabel}"/></div>
-            <div class="col-sm-12 dounhide"><div class="well well-sm"><label for="publicity" id="publicLabel"><div
-                    data-th-text="#{filespage.filepubliclabel}"/></label>  <input type="checkbox" id="publicity" name="publicity" value="true" checked="checked" /></div></div>
+            <div class="col-sm-12 dounhide"><input class="form-control" id="alternative" type="text" name="alternative" th:placeholder="#{filespage.filenamelabel}"/></div>
+            <div class="col-sm-12 dounhide"><div class="well well-sm"><label th:for="${#ids.next('publicity')}" id="publicityLabel"><div
+                    data-th-text="#{filespage.filepubliclabel}"/></label>  <input th:type="checkbox" id="publicity" name="publicity" class="publicity" th:value="${publicity}" th:checked="${publicity}"/></div></div>
             <div class="col-sm-12 dounhide"><input id="uploadSubmit" type="submit" th:value="#{filespage.uploadbutton}"
                                           class="btn btn-lg btn-success btn-block"/></div></div>
     </form>
