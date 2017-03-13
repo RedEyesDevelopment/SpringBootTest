@@ -1,3 +1,5 @@
+//TODO CREATE NEWS MODEL, REPS, SERVICES, SQL TABLES, CONTOLLER, PAGES
+
 //package projectpackage.model.News;
 //
 //import javax.persistence.*;

@@ -1,3 +1,4 @@
+//TODO CREATE TAG MODEL, REPS, SERVICES, SQL TABLES
 //package projectpackage.model.News;
 //
 //import javax.persistence.*;
