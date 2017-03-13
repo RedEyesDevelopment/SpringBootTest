@@ -12,6 +12,7 @@
 <body>
 <nav id="filemenu" class="navbar navbar-fixed-top">
     <div id="buttonMenu" class="btn-group btn-group-justified">
+        <a id="uploadButton" th:href="@{/fileapi/upload}" class="btn btn-primary"><th th:text="#{fileslistpage.uploadbutton}"/></a>
         <a id="searchFilesButton" data-toggle="collapse" data-target="#searchForm" class="btn btn-primary"
            onclick="doUnhide()">
             <th th:text="#{fileslistpage.searchbutton}"/>

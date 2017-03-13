@@ -9,6 +9,7 @@
 <body>
 
 <div class="fileform">
+    <div class="btn-group btn-group-justified"><a id="uploadButton" th:href="@{/fileapi/filelist(for=${quantity},show=${offset},sort=${sort},ascend=${ascend})}" class="btn btn-primary btn-group btn-group-justified"><th th:text="#{filessearchpage.returnbutton}"/></a></div>
     <form method="POST" action="/fileapi/uploadfile" th:action="@{/fileapi/uploadfile}" enctype="multipart/form-data">
         <div class="row">
             <div class="col-sm-12"><div id="preUploadText" data-th-text="#{filespage.uploadfilemessage}"/></div>

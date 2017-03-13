@@ -82,4 +82,5 @@ insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) val
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('filessearchpage.returnbutton', 'ru', 'Вернуться назад', 'кнопка возвращения на страницу поиска файлов');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.firstbutton', 'ru', 'Первая', 'название первой страницы в списке страниц');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.lastbutton', 'ru', 'Последняя', 'название последней страницы в списке страниц');
+insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA, IM_COMMENT) values ('fileslistpage.uploadbutton', 'ru', 'Загрузить', 'название кнопки загрузки в списке кнопок');
 

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
+import projectpackage.model.support.FilespageParameters;
 import projectpackage.service.UserService;
 import projectpackage.service.UserSessionService;
 
@@ -109,5 +110,18 @@ public class SessionTool {
         if (sessionNeedsUpdate) {
             userSessionService.save(userSession);
         }
+    }
+
+    public static FilespageParameters getFilespageParameters(HttpSession session){
+        FilespageParameters filespageParameters = new FilespageParameters();
+        int quantity = (null!=session.getAttribute("filesQuantity"))? (int) session.getAttribute("filesQuantity"): 5;
+        int offset = (null!=session.getAttribute("filesOffset"))? (int) session.getAttribute("filesOffset"): 0;
+        String sort = (null!=session.getAttribute("filesSortParameter"))? (String) session.getAttribute("filesSortParameter"): "alternative";
+        boolean ascend = (null!=session.getAttribute("filesAscend"))? (Boolean) session.getAttribute("filesAscend"): true;
+        filespageParameters.setQuantity(quantity);
+        filespageParameters.setOffset(offset);
+        filespageParameters.setSort(sort);
+        filespageParameters.setAscend(ascend);
+        return filespageParameters;
     }
 }

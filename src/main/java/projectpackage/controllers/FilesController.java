@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import projectpackage.model.AuthEntities.User;
 import projectpackage.model.AuthEntities.UserSession;
 import projectpackage.model.Files.FileOnServer;
+import projectpackage.model.support.FilespageParameters;
 import projectpackage.pagination.PagesCollection;
 import projectpackage.service.FilesService;
 import projectpackage.service.UserService;
@@ -46,9 +47,14 @@ public class FilesController {
     UserSessionService userSessionService;
 
     @RequestMapping("upload")
-    public String fileUploadPage(Model model) {
+    public String fileUploadPage(Model model, HttpServletRequest request) {
         Boolean publicity = true;
         model.addAttribute("publicity", publicity);
+        FilespageParameters filespageParameters = SessionTool.getFilespageParameters(request.getSession());
+        model.addAttribute("quantity", filespageParameters.getQuantity());
+        model.addAttribute("offset", filespageParameters.getOffset());
+        model.addAttribute("sort", filespageParameters.getSort());
+        model.addAttribute("ascend", filespageParameters.isAscend());
         return "files/fileupload";
     }
 
@@ -149,11 +155,12 @@ public class FilesController {
     public String fileSearchResultPage(String searchString, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         List<FileOnServer> fileOnServers = filesService.findByAlternativeLike(searchString);
 
-        UserSession userSession = SessionTool.getUserSessionParametersFromSession(request.getSession(), userService);
         map.put("filesList", fileOnServers);
-        map.put("sort", userSession.getFilesSortParameter());
-        map.put("quantity", userSession.getFilesQuantity());
-        map.put("ascend", userSession.isFilesAscend());
+        FilespageParameters filespageParameters = SessionTool.getFilespageParameters(request.getSession());
+        map.put("quantity", filespageParameters.getQuantity());
+        map.put("offset", filespageParameters.getOffset());
+        map.put("sort", filespageParameters.getSort());
+        map.put("sort", filespageParameters.getSort());
         return "files/filesearch";
     }
 

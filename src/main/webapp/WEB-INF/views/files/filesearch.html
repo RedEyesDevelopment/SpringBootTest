@@ -12,7 +12,7 @@
 <body>
 
 <div class="btn-group btn-group-justified">
-    <a th:href="@{/fileapi/filelist(for=${quantity},show=0,sort=${sort},ascend=${ascend})}" class="btn btn-primary"><th th:text="#{filessearchpage.returnbutton}"/></a>
+    <a th:href="@{/fileapi/filelist(for=${quantity},show=${offset},sort=${sort},ascend=${ascend})}" class="btn btn-primary"><th th:text="#{filessearchpage.returnbutton}"/></a>
 </div>
 
 <div class="col-sm-12">
