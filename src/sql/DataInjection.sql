@@ -11,10 +11,10 @@ insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND,
 insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('2', '10', 'id', 1, "ru");
 insert into SESSIONS (SESSION_USER_ID, FILES_QUANTITY, FILES_SORT, FILES_ASCEND, USER_LOCALE) values ('3', '10', 'id', 1, "ru");
 
-
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('1', '2');
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('2', '2');
 insert into USER_ROLES (UR_USER_ID, UR_ROLE_ID) values ('3', '1');
+
 
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_ballons.png', 'png', 'Ballons', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_bouquet.png', 'png', 'Flowers bouquet', '1', 1, 1);
@@ -53,6 +53,17 @@ insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_talk.png', 'png', 'Talk', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_trash.png', 'png', 'Trash', '1', 1, 1);
 insert into FILES (FILE_NAME, FILE_EXTENSION, FILE_ALT, FILE_AUTHOR, FILE_PUBLIC, FILE_NOT_DELETABLE) values ('innerResources/pic_volume.png', 'png', 'Volume', '1', 1, 1);
+
+
+
+
+insert into NEWS (NEWS_NAME, NEWS_IMAGE, NEWS_DATA, NEWS_AUTHOR, NEWS_ENABLED) values ('Мы начинаем нашу работу!', '1', 'Здравствуйте! Наша веб-студия начинает свою работу!', '1', 1);
+
+insert into TAGS (TAG_DATA) values ('Ура!');
+
+insert into NEWS_TAGS_MAG (TN_NEWS_ID, TN_TAG_ID) values ('1', '1');
+
+
 
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'ru', 'Хуйня');
 insert into INTERNATIONAL_MESSAGES (IM_CODE, IM_LOCALE, IM_DATA) values ('database.label', 'en', 'Hooynya');
