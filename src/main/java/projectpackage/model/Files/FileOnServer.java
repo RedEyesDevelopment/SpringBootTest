@@ -1,9 +1,11 @@
 package projectpackage.model.Files;
 
 import projectpackage.model.AuthEntities.User;
+import projectpackage.model.News.News;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -41,6 +43,9 @@ public class FileOnServer {
 
     @Column(name = "FILE_NOT_DELETABLE")
     private boolean notDeletable;
+
+    @OneToMany(mappedBy = "image", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
+    private Set<News> news;
 
     public int getId() {
         return id;
@@ -104,6 +109,14 @@ public class FileOnServer {
 
     public void setNotDeletable(boolean notDeletable) {
         this.notDeletable = notDeletable;
+    }
+
+    public Set<News> getNews() {
+        return news;
+    }
+
+    public void setNews(Set<News> news) {
+        this.news = news;
     }
 
     @Override

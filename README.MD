@@ -20,7 +20,7 @@ https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/htm
 https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-part-seven-pagination/
 http://docs.spring.io/spring-data/rest/docs/1.1.x/reference/html/paging-chapter.html
 
-
+javastudy.ru/spring-mvc/spring-mvc-load=file-with-validation/
 
 ******************************
 http://www.thymeleaf.org/doc/articles/springmvcaccessdata.html
